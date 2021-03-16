@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://tanglinghan.github.io</id>
     <title>山河在</title>
-    <updated>2021-03-07T13:48:50.878Z</updated>
+    <updated>2021-03-16T12:45:28.166Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://tanglinghan.github.io"/>
     <link rel="self" href="https://tanglinghan.github.io/atom.xml"/>
@@ -31,7 +31,7 @@
 <pre><code>systemctl restart crond
 </code></pre>
 <ol>
-<li>然后找到挖矿程序进程,  单独kill掉kdevtmpfsi进程会不断恢复占用, kinsing是kdevtmpfsi的守护进程, 依次kill掉</li>
+<li>然后找到挖矿程序进程,  一般这种都有守护线程, 单独kill掉kdevtmpfsi进程会不断恢复占用, kinsing是kdevtmpfsi的守护进程, 依次kill掉</li>
 </ol>
 <pre><code>ps -ef | grep kinsing
 ps -ef | grep kdevtmpfsi
@@ -81,8 +81,47 @@ emmm..., 给他来一下🔨</p>
 <p>然后在kill掉kdevtmpfsi进程,<br>
 五分钟后....<br>
 十分钟后.......<br>
-暂时OK.......<br>
-🤣🤣CPU一直在50%....感觉还是有问题...🤣🤣重装系统了.........</p>
+暂时OK.......</p>
+<p>🤣🤣CPU一直在50%....感觉还是有问题...🤣🤣重装系统了.........</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Linux创建用户并修改密码]]></title>
+        <id>https://tanglinghan.github.io/post/linux-chuang-jian-yong-hu-bing-xiu-gai-mi-ma/</id>
+        <link href="https://tanglinghan.github.io/post/linux-chuang-jian-yong-hu-bing-xiu-gai-mi-ma/">
+        </link>
+        <updated>2020-04-22T15:09:10.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="一-创建新用户">一： 创建新用户</h2>
+<p>方法1：使用默认设置直接创建用户：<code>test</code><br>
+<code>useradd test</code></p>
+<p>方法2：创建用户并设置用户组名称，以及UID</p>
+<p>创建一个名为 test的帐号，并设置用户组名称为：users UID:为1500<br>
+<code>useradd -u 1500 -g users test1</code></p>
+<h2 id="二-设置密码">二： 设置密码</h2>
+<p>1：请 root 给予 test 密码：<br>
+<code>passwd test</code></p>
+<pre><code>[root@study ~]$passwd test
+Changing password for user test.
+New UNIX password:   //这里直接输入新的密码，屏幕不会有任何反应
+BAD PASSWORD: The password is shorter than 8 characters //密码太简单或过短的错误！
+Retype new UNIX password: //再输入一次同样的密码
+passwd: all authentication tokens updated successfully. //成功修改！
+</code></pre>
+<p>2：用 test 登陆后，修改 test 自己的密码：<br>
+passwd</p>
+<p>//后面没有加帐号名，就是改自己的密码！</p>
+<pre><code>[test1@study ~]$ passwd
+Changing password for user test.
+Changing password for test
+（current） UNIX password: //这里输入“原有的旧密码”
+New UNIX password: //这里输入新密码
+BAD PASSWORD: The password is shorter than 8 characters //密码太短！不可以设置！重新想
+New password: //这里输入新想的密码
+BAD PASSWORD: The password fails the dictionary check - it is based on a dictionary word//同样的，密码设置在字典里面找的到该字串，所以也是不建议！无法通过，再想新的！
+New UNIX password: //这里再想个新的密码来输入吧
+Retype new UNIX password: //通过密码验证！所以重复这个密码的输入
+passwd: all authentication tokens updated successfully. //修改成功
+</code></pre>
 ]]></content>
     </entry>
     <entry>
