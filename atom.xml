@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://tanglinghan.github.io</id>
     <title>山河在</title>
-    <updated>2021-03-16T15:40:43.996Z</updated>
+    <updated>2021-03-17T14:55:25.006Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://tanglinghan.github.io"/>
     <link rel="self" href="https://tanglinghan.github.io/atom.xml"/>
@@ -237,19 +237,14 @@ update mysql.user set host='%' where user='root';
 <h2 id="安装-erlang">安装 erlang`</h2>
 </li>
 </ol>
-<pre><code> tar -zxvf otp_src_23.2.7.tar.gz
- cd otp_src_23.2.7
- # 编译安装
-  ./configure --prefix=/usr/local/erlang
-  make &amp;&amp; make install
-  # 测试是否安装成功
-  cd /usr/local/erlang/bin/ 
-   ./erl
-
-[root@hecs-x-large-2-linux-20210304000224 bin]# ./erl
-Erlang/OTP 23 [erts-11.1.8] [source] [64-bit] [smp:2:2] [ds:2:2:10] [async-threads:1] [hipe]
-
-Eshell V11.1.8  (abort with ^G)
+<pre><code>tar -zxvf otp_src_23.2.7.tar.gz
+cd otp_src_23.2.7
+# 编译安装
+./configure --prefix=/usr/local/erlang
+make &amp;&amp; make install
+# 测试是否安装成功
+cd /usr/local/erlang/bin/ 
+ ./erl
 </code></pre>
 <p><code>ctrl+c</code>退出, 配置环境变量:</p>
 <pre><code> vim /etc/profile
@@ -257,7 +252,7 @@ Eshell V11.1.8  (abort with ^G)
  export PATH=$PATH:/usr/local/erlang/bin
  # shift+冒号 进入底行命令模式 输入 wq 保存退出
 </code></pre>
-<ol start="3">
+<ol>
 <li>
 <h2 id="安装rabbitmq">安装RabbitMQ</h2>
 </li>
