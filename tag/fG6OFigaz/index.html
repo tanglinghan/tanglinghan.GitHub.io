@@ -83,17 +83,19 @@
     <div class="flex-1 order-2 md:order-1">
       <h2 class="text-2xl font-semibold mb-4">
         <a href="https://tanglinghan.github.io/post/linux-chuang-jian-yong-hu-bing-xiu-gai-mi-ma/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
-          Linux创建用户并修改密码
+          Linux - 用户管理
         </a>
       </h2>
       <div class="mb-4 text-xs text-gray-500">2020-04-22</div>
       <div class="mb-4 text-gray-500 dark:text-gray-300">
-        一： 创建新用户
-方法1：使用默认设置直接创建用户：test
-useradd test
-方法2：创建用户并设置用户组名称，以及UID
-创建一个名为 test的帐号，并设置用户组名称为：users UID:为1500
-useradd -u 1...
+        一： 创建用户
+useradd [options] [username]
+
+参数说明：
+[options]选项:
+
+-c comment 指定一段注释性描述。
+-d 目录 指定用户主目录，如果此目录不存在，则同时使用-m选项，可以创建主目录...
       </div>
       <a href="https://tanglinghan.github.io/post/linux-chuang-jian-yong-hu-bing-xiu-gai-mi-ma/" class="btn">
         阅读更多
@@ -106,7 +108,7 @@ useradd -u 1...
     
     <div class="flex-1 order-2 md:order-1">
       <h2 class="text-2xl font-semibold mb-4">
-        <a href="https://tanglinghan.github.io/post/linux-an-zhuang-mysql80/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+        <a href="https://tanglinghan.github.io/post/linux-install-mysql80/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
           Linux - 安装MySQL8.0
         </a>
       </h2>
@@ -121,7 +123,7 @@ tar -xvf mysql-8.0.23-linux-glibc2.12-x86_64.tar.xz
 # 重命名文件夹
 mv mysql-8.0.23-linux-glibc2.12-x...
       </div>
-      <a href="https://tanglinghan.github.io/post/linux-an-zhuang-mysql80/" class="btn">
+      <a href="https://tanglinghan.github.io/post/linux-install-mysql80/" class="btn">
         阅读更多
       </a>
     </div>
@@ -132,7 +134,7 @@ mv mysql-8.0.23-linux-glibc2.12-x...
     
     <div class="flex-1 order-2 md:order-1">
       <h2 class="text-2xl font-semibold mb-4">
-        <a href="https://tanglinghan.github.io/post/linux-an-zhuang-rabbitmq/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+        <a href="https://tanglinghan.github.io/post/linux-install-rabbitmq/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
           Linux - 安装RabbitMQ
         </a>
       </h2>
@@ -144,7 +146,7 @@ mv mysql-8.0.23-linux-glibc2.12-x...
 
 rabbitmq-server-generic-unix-3....
       </div>
-      <a href="https://tanglinghan.github.io/post/linux-an-zhuang-rabbitmq/" class="btn">
+      <a href="https://tanglinghan.github.io/post/linux-install-rabbitmq/" class="btn">
         阅读更多
       </a>
     </div>

@@ -4,49 +4,49 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Linux - 用户管理 - 山河在</title>
+<title>Linux - 安装MySQL8.0 - 山河在</title>
 <link rel="shortcut icon" href="https://tanglinghan.github.io/favicon.ico">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
 <link rel="stylesheet" href="https://tanglinghan.github.io/media/css/tailwind.css">
 <link rel="stylesheet" href="https://tanglinghan.github.io/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="Linux - 用户管理 - 山河在 - Atom Feed" href="https://tanglinghan.github.io/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="Linux - 安装MySQL8.0 - 山河在 - Atom Feed" href="https://tanglinghan.github.io/atom.xml">
 
     
 
-  <meta name="description" content="一： 创建用户
-useradd [options] [username]
+  <meta name="description" content="MySQL8.0下载
 
-参数说明：
-[options]选项:
+安装MySQL
 
--c comment 指定一段注释性描述。
--d 目录 指定用户主目录，如果此目录不存在，则同时使用-m选项，可以创建主目录..." />
-  <meta property="og:title" content="Linux - 用户管理 - 山河在">
-  <meta property="og:description" content="一： 创建用户
-useradd [options] [username]
+# 解压
+tar -xvf mysql-8.0.23-linux-glibc2.12-x86_64.tar.xz
+# 重命名文件夹
+mv mysql-8.0.23-linux-glibc2.12-x..." />
+  <meta property="og:title" content="Linux - 安装MySQL8.0 - 山河在">
+  <meta property="og:description" content="MySQL8.0下载
 
-参数说明：
-[options]选项:
+安装MySQL
 
--c comment 指定一段注释性描述。
--d 目录 指定用户主目录，如果此目录不存在，则同时使用-m选项，可以创建主目录..." />
+# 解压
+tar -xvf mysql-8.0.23-linux-glibc2.12-x86_64.tar.xz
+# 重命名文件夹
+mv mysql-8.0.23-linux-glibc2.12-x..." />
   <meta property="og:type" content="articles">
-  <meta property="og:url" content="https://tanglinghan.github.io/post/linux-chuang-jian-yong-hu-bing-xiu-gai-mi-ma/" />
+  <meta property="og:url" content="https://tanglinghan.github.io/post/linux-install-mysql80/" />
   <meta property="og:image" content="https://tanglinghan.github.io/images/avatar.png">
   <meta property="og:image:height" content="630">
   <meta property="og:image:width" content="1200">
-  <meta name="twitter:title" content="Linux - 用户管理 - 山河在">
-  <meta name="twitter:description" content="一： 创建用户
-useradd [options] [username]
+  <meta name="twitter:title" content="Linux - 安装MySQL8.0 - 山河在">
+  <meta name="twitter:description" content="MySQL8.0下载
 
-参数说明：
-[options]选项:
+安装MySQL
 
--c comment 指定一段注释性描述。
--d 目录 指定用户主目录，如果此目录不存在，则同时使用-m选项，可以创建主目录...">
+# 解压
+tar -xvf mysql-8.0.23-linux-glibc2.12-x86_64.tar.xz
+# 重命名文件夹
+mv mysql-8.0.23-linux-glibc2.12-x...">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="canonical" href="https://tanglinghan.github.io/post/linux-chuang-jian-yong-hu-bing-xiu-gai-mi-ma/">
+  <link rel="canonical" href="https://tanglinghan.github.io/post/linux-install-mysql80/">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
@@ -64,11 +64,16 @@ useradd [options] [username]
     <div class="max-w-4xl w-full mx-auto">
       <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
         <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
-          Linux - 用户管理
+          Linux - 安装MySQL8.0
         </h1>
         
         <div class="mb-8 flex flex-wrap">
-          <div class="text-gray-400 text-sm mr-4">2020-04-22 · 4 min read</div>
+          <div class="text-gray-400 text-sm mr-4">2020-02-04 · 3 min read</div>
+          
+            <a href="https://tanglinghan.github.io/tag/qeJTjrwYS/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              环境安装
+            </a>
           
             <a href="https://tanglinghan.github.io/tag/fG6OFigaz/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
               <i class="ri-hashtag"></i>
@@ -77,78 +82,86 @@ useradd [options] [username]
           
         </div>
         <div class="markdown mb-8" v-pre>
-          <h2 id="一-创建用户">一： 创建用户</h2>
-<p><code>useradd [options] [username]</code></p>
-<blockquote>
-<p>参数说明：</p>
-<p>[options]选项:</p>
-<blockquote>
-<p>-c comment 指定一段注释性描述。<br>
--d 目录 指定用户主目录，如果此目录不存在，则同时使用-m选项，可以创建主目录。<br>
--g 用户组 指定用户所属的用户组。<br>
--G 用户组，用户组 指定用户所属的附加组。<br>
--s Shell文件 指定用户的登录Shell。<br>
--u 用户号 指定用户的用户号，如果同时有-o选项，则可以重复使用其他用户的标识号。</p>
-</blockquote>
-<p>[username]用户名:</p>
-<blockquote>
-<p>指定新账号的登录名</p>
-</blockquote>
-</blockquote>
-<p>举例：<code>useradd -d /home/appuser appuser</code></p>
-<p>创建一个名为 appuser 的帐号，并设置用户主目录为/home/appuser</p>
-<h2 id="二-用户口令设置密码">二： 用户口令(设置密码)</h2>
-<p>指定和修改用户口令的命令是passwd。root用户可以为自己和其他用户指定口令，普通用户只能用它修改自己的口令。<br>
-<code>passwd [options] [username]</code></p>
-<blockquote>
-<p>可使用的选项：</p>
-</blockquote>
-<blockquote>
-<blockquote>
-<p>-l 锁定口令，即禁用账号。<br>
--u 口令解锁。<br>
--d 使账号无口令。<br>
--f 强迫用户下次登录时修改口令。</p>
-</blockquote>
-<p>如果默认用户名，则修改当前用户的口令。</p>
-</blockquote>
-<p>举例，假设当前登录用户是appuser，则下面的命令修改该用户自己的口令：</p>
-<pre><code class="language-shell">$ passwd 
-Changing password for user appuser.
-Changing password for appuser.
-(current) UNIX password:******
-New password:******
-Retype new password::******* 
+          <p><a href="https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-8.0.23-linux-glibc2.12-x86_64.tar.xz">MySQL8.0下载</a></p>
+<ol>
+<li>安装MySQL</li>
+</ol>
+<pre><code># 解压
+tar -xvf mysql-8.0.23-linux-glibc2.12-x86_64.tar.xz
+# 重命名文件夹
+mv mysql-8.0.23-linux-glibc2.12-x86_64 mysql
+# 进入mysql目录并新建data文件夹
+cd mysql;mkdir data
 </code></pre>
-<p>如果当前登录用户是root用户，可以用下列形式指定任何用户的口令：</p>
-<pre><code class="language-shell"># passwd appuser 
-Changing password for user appuser.
-New password:******* 
-Retype new password::*******
-passwd: all authentication tokens updated successfully.
+<p>创建mysql用户组和用户并修改权限</p>
+<pre><code>#创建mysql组
+groupadd mysql
+#创建用户mysql
+useradd -r -g mysql mysql
+#授予用户mysql权限
+chown mysql:mysql -R /usr/local/mysql/
+# 配置文件中socket目录在/var/lib/mysql/ ,若没有此文件夹 可手动创建,并赋予用户权限
+chown mysql:mysql -R /var/lib/mysql/
 </code></pre>
-<p>为用户指定空口令时，执行下列形式的命令：<br>
-<code>passwd -d appuser</code><br>
-此命令将用户 appuser 的口令删除，这样用户 appuser 下一次登录时，系统就不再允许该用户登录了。</p>
-<p>passwd 命令还可以用 -l(lock) 选项锁定某一用户，使其不能登录，例如：<br>
-<code>passwd -l appuser</code></p>
-<h2 id="三修改帐号">三：修改帐号</h2>
-<p>修改用户账号就是根据实际情况更改用户的有关属性，如用户号、主目录、用户组、登录Shell等。<br>
-<code>usermod [options] [username]</code><br>
-常用的选项包括-c, -d, -m, -g, -G, -s, -u以及-o等，这些选项的意义与useradd命令中的选项一样，可以为用户指定新的资源值。</p>
-<p>另外，有些系统可以使用选项：<code>-l [newUsername]</code></p>
 <blockquote>
-<p>这个选项指定一个新的账号，即将原来的用户名改为新的用户名。</p>
+<p>useradd -r 创建系统用户 -g 为用户分配组<br>
+chown 用户：组  -R （递归修改） 目录</p>
 </blockquote>
-<p>例如：<code>usermod -s /bin/ksh -d /home/z –g developer sam</code><br>
-此命令将用户sam的登录Shell修改为ksh，主目录改为/home/z，用户组改为developer。</p>
-<h2 id="四删除帐号">四：删除帐号</h2>
-<p>如果一个用户的账号不再使用，可以从系统中删除。删除用户账号就是要将/etc/passwd等系统文件中的该用户记录删除，必要时还删除用户的主目录。<br>
-删除一个已有的用户账号使用<code>userdel</code>命令，其格式如下：<br>
-<code>userdel [options] [username]</code><br>
-常用的选项是<code>-r</code>，它的作用是把用户的主目录一起删除。</p>
-<p>例如：<code>userdel -r sam</code><br>
-此命令删除用户sam在系统文件中（主要是/etc/passwd, /etc/shadow, /etc/group等）的记录，同时删除用户的主目录。</p>
+<p>新建配置文件my.cnf, 修改连接端口为3307</p>
+<pre><code>vim /etc/my.cnf
+# 添加以下内容
+[mysql]
+# 设置mysql客户端默认字符集
+default-character-set=utf8mb4
+socket=/var/lib/mysql/mysql.sock
+[mysqld]
+# mysql日志文件
+slow_query_log_file=/usr/local/mysql/sql_log/slow_querylog.log
+socket=/var/lib/mysql/mysql.sock
+pid_file = /var/lib/mysql/mysqld.pid
+port=3307
+user=mysql
+basedir=/usr/local/mysql
+datadir=/usr/local/mysql/data
+# 允许最大连接数
+max_connections=200
+# 允许连接失败的次数。这是为了防止有人从该主机试图攻击数据库系统
+max_connect_errors=10
+#服务端使用的字符集默认为utf8mb4
+character_set_server=utf8mb4
+# 创建新表时将使⽤的默认存储引擎
+default-storage-engine=INNODB
+lower_case_table_names=1
+max_allowed_packet=16M
+# 默认使用“mysql_native_password”插件认证
+default_authentication_plugin=mysql_native_password
+[client]
+# 设置mysql客户端连接服务端时默认使用的端口
+port=3307
+default-character-set=utf8mb4
+</code></pre>
+<p>数据库初始化</p>
+<pre><code>/usr/local/mysql/bin/mysqld  --initialize  --user=mysql --basedir=/usr/local/mysql/ --datadir=/usr/local/mysql/data/ 
+</code></pre>
+<blockquote>
+<p>遇见异常<br>
+<img src="https://tanglinghan.github.io/post-images/1615113330488.png" alt="" loading="lazy"><br>
+yum install libaio</p>
+</blockquote>
+<p>记得保存初始化密码<br>
+<img src="https://tanglinghan.github.io/post-images/1615113519957.png" alt="" loading="lazy"><br>
+进入安装目录<code>support-files</code>启动mysql,<code>./support-files/mysql.server start</code>, 如果出现类似<code>however file don't exists.</code>这种错误, 手动创建文件就好了<br>
+<img src="https://tanglinghan.github.io/post-images/1615113753067.png" alt="" loading="lazy"></p>
+<p>修改密码</p>
+<pre><code>cd usr/local/mysql/bin
+./mysql -u root -p
+# 修改密码
+alter user 'root'@'localhost' identified by 'your_password';
+# 刷新权限
+flush privileges;
+#  修改root用户可以远程连接
+update mysql.user set host='%' where user='root';
+</code></pre>
 
         </div>
         <!-- Share to Twitter, Weibo, Telegram -->
@@ -195,17 +208,7 @@ passwd: all authentication tokens updated successfully.
         </div>
       </div>
       <div class="post-toc-container">
-        <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li><a href="#%E4%B8%80-%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7">一： 创建用户</a></li>
-<li><a href="#%E4%BA%8C-%E7%94%A8%E6%88%B7%E5%8F%A3%E4%BB%A4%E8%AE%BE%E7%BD%AE%E5%AF%86%E7%A0%81">二： 用户口令(设置密码)</a></li>
-<li><a href="#%E4%B8%89%E4%BF%AE%E6%94%B9%E5%B8%90%E5%8F%B7">三：修改帐号</a></li>
-<li><a href="#%E5%9B%9B%E5%88%A0%E9%99%A4%E5%B8%90%E5%8F%B7">四：删除帐号</a></li>
-</ul>
-</li>
-</ul>
-
+        
       </div>
     </div>
 
