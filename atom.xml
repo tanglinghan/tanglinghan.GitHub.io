@@ -1,19 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>http://tanglinghan.github.io</id>
+    <id>https://tanglinghan.github.io</id>
     <title>山河在</title>
-    <updated>2021-04-03T17:01:51.173Z</updated>
+    <updated>2021-04-04T03:10:09.023Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="http://tanglinghan.github.io"/>
-    <link rel="self" href="http://tanglinghan.github.io/atom.xml"/>
+    <link rel="alternate" href="https://tanglinghan.github.io"/>
+    <link rel="self" href="https://tanglinghan.github.io/atom.xml"/>
     <subtitle>唧唧啵啵耶</subtitle>
-    <logo>http://tanglinghan.github.io/images/avatar.png</logo>
-    <icon>http://tanglinghan.github.io/favicon.ico</icon>
+    <logo>https://tanglinghan.github.io/images/avatar.png</logo>
+    <icon>https://tanglinghan.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, 山河在</rights>
     <entry>
+        <title type="html"><![CDATA[Linux - 安装Nginx]]></title>
+        <id>https://tanglinghan.github.io/post/linux-an-zhuang-nginx/</id>
+        <link href="https://tanglinghan.github.io/post/linux-an-zhuang-nginx/">
+        </link>
+        <updated>2021-04-04T02:45:47.000Z</updated>
+        <content type="html"><![CDATA[<p>操作系统：<code>CentOS 7.6 64bit</code></p>
+<p>安装环境<br>
+<code>yum -y install gcc pcre-devel zlib-devel openssl openssl-devel</code><br>
+nginx下载地址：<a href="https://nginx.org/download/">https://nginx.org/download/</a></p>
+<p>上传压缩包, 解压</p>
+<pre><code class="language-shell">tar -zxvf nginx-1.18.0.tar.gz
+cd nginx-1.18.0/
+</code></pre>
+<p>配置并安装SSL模块<br>
+<code>./configure --prefix=/usr/local/nginx --with-http_stub_status_module --with-http_ssl_module</code></p>
+<blockquote>
+<p><code>/usr/local/nginx</code>是安装目录, 可以换成自己想要安装的目录</p>
+</blockquote>
+<p>编译</p>
+<pre><code class="language-shell">make
+make install
+</code></pre>
+<p>检查配置<br>
+<code>/usr/local/nginx/sbin/nginx -t</code><br>
+<img src="https://tanglinghan.github.io/post-images/1617505524665.png" alt="" loading="lazy"></p>
+<p>启动nginx<br>
+<code>/usr/local/nginx/sbin/nginx</code></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[修改ssh登录和sftp连接超时问题]]></title>
+        <id>https://tanglinghan.github.io/post/modifySSHAndSFTPConnectTimeout/</id>
+        <link href="https://tanglinghan.github.io/post/modifySSHAndSFTPConnectTimeout/">
+        </link>
+        <updated>2021-04-04T02:05:21.000Z</updated>
+        <content type="html"><![CDATA[<p>操作系统：<code>CentOS 7.6 64bit</code></p>
+<p>sftp客户端工具连接sftp服务器时，闲置一段时间后，就会跟服务器断开，重新连接。响应速度相比重新建立连接要慢很多。</p>
+<h3 id="1-修改-sshd_config-配置文件">1. 修改 sshd_config 配置文件</h3>
+<p><code>vim /etc/ssh/sshd_config</code><br>
+<img src="https://tanglinghan.github.io/post-images/1617502612289.png" alt="" loading="lazy"></p>
+<pre><code class="language-shell">vim /etc/ssh/sshd_config
+------------------------------------------------
+TCPKeepAlive yes
+ClientAliveInterval 60
+ClientAliveCountMax 120
+</code></pre>
+<blockquote>
+<p>ClientAliveInterval ： 每隔60s 发送心跳数据<br>
+ClientAliveCountMax ： 允许超时120次数，超过后断开链接</p>
+</blockquote>
+<pre><code>我的配置文件上面三行默认是注释的, 打开注释并按自己的想法设置即可
+</code></pre>
+<h3 id="2-重启sshd服务">2. 重启sshd服务</h3>
+<p><code>systemctl restart sshd</code></p>
+]]></content>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[Letsencrypt]]></title>
-        <id>http://tanglinghan.github.io/post/letsencrypt/</id>
-        <link href="http://tanglinghan.github.io/post/letsencrypt/">
+        <id>https://tanglinghan.github.io/post/letsencrypt/</id>
+        <link href="https://tanglinghan.github.io/post/letsencrypt/">
         </link>
         <updated>2021-04-03T13:08:16.000Z</updated>
         <content type="html"><![CDATA[<p>操作系统：<code>CentOS 7.6 64bit</code><br>
@@ -77,7 +134,7 @@ sudo snap refresh core
 <code>certbot certonly --manual --preferred-challenge dns -d www.aaa.com</code></p>
 </li>
 </ul>
-<p><img src="http://tanglinghan.github.io/post-images/1617461594013.png" alt="" loading="lazy"><br>
+<p><img src="https://tanglinghan.github.io/post-images/1617461594013.png" alt="" loading="lazy"><br>
 根据它的提示, 要你先去给你的域名添加一条解析记录域名填 <code>_acme-challenge.www.aaa.com</code>, 解析类型为<code>TXT</code>, 值填他生成的那一串字符串, <strong>等你域名解析配置好之后再按enter键(划重点)</strong>。<br>
 然后会在<code>/etc/letsencrypt/live/www.aaa.com</code>目录下生成证书文件。</p>
 <ol>
@@ -92,21 +149,21 @@ sudo snap refresh core
     </entry>
     <entry>
         <title type="html"><![CDATA[记一次服务器惨遭挖矿]]></title>
-        <id>http://tanglinghan.github.io/post/jiyiciwakuang/</id>
-        <link href="http://tanglinghan.github.io/post/jiyiciwakuang/">
+        <id>https://tanglinghan.github.io/post/jiyiciwakuang/</id>
+        <link href="https://tanglinghan.github.io/post/jiyiciwakuang/">
         </link>
         <updated>2021-03-07T02:31:18.000Z</updated>
         <summary type="html"><![CDATA[<p>登进服务器一看CPU占用情况, 感觉不对劲(前天刚发现公司服务器惨遭挖矿,隐约之间已经猜到点什么东西, 有点兴奋), top一看, 呦, 好家伙:</p>
 ]]></summary>
         <content type="html"><![CDATA[<p>登进服务器一看CPU占用情况, 感觉不对劲(前天刚发现公司服务器惨遭挖矿,隐约之间已经猜到点什么东西, 有点兴奋), top一看, 呦, 好家伙:</p>
 <!-- more -->
-<figure data-type="image" tabindex="1"><img src="http://tanglinghan.github.io/post-images/1615086285423.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="1"><img src="https://tanglinghan.github.io/post-images/1615086285423.png" alt="" loading="lazy"></figure>
 <ol>
 <li>首先查看定时任务：</li>
 </ol>
 <pre><code>crontab -l
 </code></pre>
-<p><img src="http://tanglinghan.github.io/post-images/1615086133167.png" alt="" loading="lazy"><br>
+<p><img src="https://tanglinghan.github.io/post-images/1615086133167.png" alt="" loading="lazy"><br>
 <code>crontab -e</code>编辑定时任务, 按<code>i</code>进入编辑模式, 删了这行定时任务, <code>shift+:</code>进入底行命令模式, 输入<code>wq</code>, 保存退出, 重启crond服务</p>
 <pre><code>systemctl restart crond
 </code></pre>
@@ -116,7 +173,7 @@ sudo snap refresh core
 <pre><code>ps -ef | grep kinsing
 ps -ef | grep kdevtmpfsi
 </code></pre>
-<p><img src="http://tanglinghan.github.io/post-images/1615086638158.png" alt="" loading="lazy"><br>
+<p><img src="https://tanglinghan.github.io/post-images/1615086638158.png" alt="" loading="lazy"><br>
 3. 找到源文件, 删除</p>
 <pre><code>cd /tmp
 rm kdevtmpfsi
@@ -131,9 +188,9 @@ rm: remove regular file ‘kinsing’? y
 </code></pre>
 <p>五分钟后.....好家伙, 又来了.....<br>
 这次进程搜不到了...<br>
-<img src="http://tanglinghan.github.io/post-images/1615087227831.png" alt="" loading="lazy"><br>
+<img src="https://tanglinghan.github.io/post-images/1615087227831.png" alt="" loading="lazy"><br>
 然后一看定时任务:<br>
-<img src="http://tanglinghan.github.io/post-images/1615087233955.png" alt="" loading="lazy"><br>
+<img src="https://tanglinghan.github.io/post-images/1615087233955.png" alt="" loading="lazy"><br>
 又回来了<br>
 重复上面操作删除定时任务, 重启定时服务, 通过top命令看到它的PID, <code>kill -9 2627</code><br>
 30秒后.....???</p>
@@ -149,11 +206,11 @@ find / -name kinsing
 </code></pre>
 <p>奇了怪了, 文件删了, 定时任务也删了, 你特么又给我跑起来了.....</p>
 <p>突然发现之前存放挖矿文件的<code>tmp</code>目录有执行权限<br>
-<img src="http://tanglinghan.github.io/post-images/1615090700339.png" alt="" loading="lazy"><br>
+<img src="https://tanglinghan.github.io/post-images/1615090700339.png" alt="" loading="lazy"><br>
 emmm..., 给他来一下🔨</p>
 <pre><code>chmod 666 tmp
 </code></pre>
-<figure data-type="image" tabindex="2"><img src="http://tanglinghan.github.io/post-images/1615090813031.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://tanglinghan.github.io/post-images/1615090813031.png" alt="" loading="lazy"></figure>
 <blockquote>
 <p>三位数字, 分别代表三个用户位赋予 “文件属主用户”、“文件所属组用户”、“其他用户” 这三种用户对文&gt; 件的读（4）、写（2）、执行（1）权限。<br>
 7=4+2+1，所以就代表读写执行权限，5=4+1，代表读和执行权限。 6=4+2, 代表读和写权限, 也可用使用字母：r读、w写、x执行。</p>
@@ -167,8 +224,8 @@ emmm..., 给他来一下🔨</p>
     </entry>
     <entry>
         <title type="html"><![CDATA[Linux - 用户管理]]></title>
-        <id>http://tanglinghan.github.io/post/linux-chuang-jian-yong-hu-bing-xiu-gai-mi-ma/</id>
-        <link href="http://tanglinghan.github.io/post/linux-chuang-jian-yong-hu-bing-xiu-gai-mi-ma/">
+        <id>https://tanglinghan.github.io/post/linux-chuang-jian-yong-hu-bing-xiu-gai-mi-ma/</id>
+        <link href="https://tanglinghan.github.io/post/linux-chuang-jian-yong-hu-bing-xiu-gai-mi-ma/">
         </link>
         <updated>2020-04-22T15:09:10.000Z</updated>
         <content type="html"><![CDATA[<h2 id="一-创建用户">一： 创建用户</h2>
@@ -247,8 +304,8 @@ passwd: all authentication tokens updated successfully.
     </entry>
     <entry>
         <title type="html"><![CDATA[Linux - 安装MySQL8.0]]></title>
-        <id>http://tanglinghan.github.io/post/linux-install-mysql80/</id>
-        <link href="http://tanglinghan.github.io/post/linux-install-mysql80/">
+        <id>https://tanglinghan.github.io/post/linux-install-mysql80/</id>
+        <link href="https://tanglinghan.github.io/post/linux-install-mysql80/">
         </link>
         <updated>2020-02-04T09:42:24.000Z</updated>
         <content type="html"><![CDATA[<p><a href="https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-8.0.23-linux-glibc2.12-x86_64.tar.xz">MySQL8.0下载</a></p>
@@ -314,13 +371,13 @@ default-character-set=utf8mb4
 </code></pre>
 <blockquote>
 <p>遇见异常<br>
-<img src="http://tanglinghan.github.io/post-images/1615113330488.png" alt="" loading="lazy"><br>
+<img src="https://tanglinghan.github.io/post-images/1615113330488.png" alt="" loading="lazy"><br>
 yum install libaio</p>
 </blockquote>
 <p>记得保存初始化密码<br>
-<img src="http://tanglinghan.github.io/post-images/1615113519957.png" alt="" loading="lazy"><br>
+<img src="https://tanglinghan.github.io/post-images/1615113519957.png" alt="" loading="lazy"><br>
 进入安装目录<code>support-files</code>启动mysql,<code>./support-files/mysql.server start</code>, 如果出现类似<code>however file don't exists.</code>这种错误, 手动创建文件就好了<br>
-<img src="http://tanglinghan.github.io/post-images/1615113753067.png" alt="" loading="lazy"></p>
+<img src="https://tanglinghan.github.io/post-images/1615113753067.png" alt="" loading="lazy"></p>
 <p>修改密码</p>
 <pre><code>cd usr/local/mysql/bin
 ./mysql -u root -p
@@ -335,8 +392,8 @@ update mysql.user set host='%' where user='root';
     </entry>
     <entry>
         <title type="html"><![CDATA[Linux - 安装RabbitMQ]]></title>
-        <id>http://tanglinghan.github.io/post/linux-install-rabbitmq/</id>
-        <link href="http://tanglinghan.github.io/post/linux-install-rabbitmq/">
+        <id>https://tanglinghan.github.io/post/linux-install-rabbitmq/</id>
+        <link href="https://tanglinghan.github.io/post/linux-install-rabbitmq/">
         </link>
         <updated>2020-02-04T07:28:56.000Z</updated>
         <content type="html"><![CDATA[<p>官方页面: <a href="https://www.rabbitmq.com/download.html">https://www.rabbitmq.com/download.html</a><br>
@@ -430,8 +487,8 @@ management.tcp.ip=0.0.0.0
     </entry>
     <entry>
         <title type="html"><![CDATA[Linux - 配置jdk环境]]></title>
-        <id>http://tanglinghan.github.io/post/linux-pei-zhi-jdk-huan-jing/</id>
-        <link href="http://tanglinghan.github.io/post/linux-pei-zhi-jdk-huan-jing/">
+        <id>https://tanglinghan.github.io/post/linux-pei-zhi-jdk-huan-jing/</id>
+        <link href="https://tanglinghan.github.io/post/linux-pei-zhi-jdk-huan-jing/">
         </link>
         <updated>2020-02-04T07:24:13.000Z</updated>
         <content type="html"><![CDATA[<pre><code>vim /etc/profile
@@ -451,8 +508,8 @@ export PATH=$PATH:${JAVA_PATH}
     </entry>
     <entry>
         <title type="html"><![CDATA[Hello Guys!]]></title>
-        <id>http://tanglinghan.github.io/post/hello-guys/</id>
-        <link href="http://tanglinghan.github.io/post/hello-guys/">
+        <id>https://tanglinghan.github.io/post/hello-guys/</id>
+        <link href="https://tanglinghan.github.io/post/hello-guys/">
         </link>
         <updated>2018-12-11T16:00:00.000Z</updated>
     </entry>

@@ -4,58 +4,37 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Letsencrypt - 山河在</title>
+<title>修改ssh登录和sftp连接超时问题 - 山河在</title>
 <link rel="shortcut icon" href="https://tanglinghan.github.io/favicon.ico">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
 <link rel="stylesheet" href="https://tanglinghan.github.io/media/css/tailwind.css">
 <link rel="stylesheet" href="https://tanglinghan.github.io/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="Letsencrypt - 山河在 - Atom Feed" href="https://tanglinghan.github.io/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="修改ssh登录和sftp连接超时问题 - 山河在 - Atom Feed" href="https://tanglinghan.github.io/atom.xml">
 
     
 
   <meta name="description" content="操作系统：CentOS 7.6 64bit
-Webserver：Nginx
-Certbot官方安装文档
-Letsencrypt
-一、安装snap
-
-安装snapd
-yum install snapd
-
-
-安装目录在/var/lib/snap..." />
-  <meta property="og:title" content="Letsencrypt - 山河在">
+sftp客户端工具连接sftp服务器时，闲置一段时间后，就会跟服务器断开，重新连接。响应速度相比重新建立连接要慢很多。
+1. 修改 sshd_config 配置文件
+vim /etc/ssh/ss..." />
+  <meta property="og:title" content="修改ssh登录和sftp连接超时问题 - 山河在">
   <meta property="og:description" content="操作系统：CentOS 7.6 64bit
-Webserver：Nginx
-Certbot官方安装文档
-Letsencrypt
-一、安装snap
-
-安装snapd
-yum install snapd
-
-
-安装目录在/var/lib/snap..." />
+sftp客户端工具连接sftp服务器时，闲置一段时间后，就会跟服务器断开，重新连接。响应速度相比重新建立连接要慢很多。
+1. 修改 sshd_config 配置文件
+vim /etc/ssh/ss..." />
   <meta property="og:type" content="articles">
-  <meta property="og:url" content="https://tanglinghan.github.io/post/letsencrypt/" />
+  <meta property="og:url" content="https://tanglinghan.github.io/post/modifySSHAndSFTPConnectTimeout/" />
   <meta property="og:image" content="https://tanglinghan.github.io/images/avatar.png">
   <meta property="og:image:height" content="630">
   <meta property="og:image:width" content="1200">
-  <meta name="twitter:title" content="Letsencrypt - 山河在">
+  <meta name="twitter:title" content="修改ssh登录和sftp连接超时问题 - 山河在">
   <meta name="twitter:description" content="操作系统：CentOS 7.6 64bit
-Webserver：Nginx
-Certbot官方安装文档
-Letsencrypt
-一、安装snap
-
-安装snapd
-yum install snapd
-
-
-安装目录在/var/lib/snap...">
+sftp客户端工具连接sftp服务器时，闲置一段时间后，就会跟服务器断开，重新连接。响应速度相比重新建立连接要慢很多。
+1. 修改 sshd_config 配置文件
+vim /etc/ssh/ss...">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="canonical" href="https://tanglinghan.github.io/post/letsencrypt/">
+  <link rel="canonical" href="https://tanglinghan.github.io/post/modifySSHAndSFTPConnectTimeout/">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
@@ -73,86 +52,38 @@ yum install snapd
     <div class="max-w-4xl w-full mx-auto">
       <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
         <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
-          Letsencrypt
+          修改ssh登录和sftp连接超时问题
         </h1>
         
         <div class="mb-8 flex flex-wrap">
-          <div class="text-gray-400 text-sm mr-4">2021-04-03 · 2 min read</div>
+          <div class="text-gray-400 text-sm mr-4">2021-04-04 · 1 min read</div>
+          
+            <a href="https://tanglinghan.github.io/tag/fG6OFigaz/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              Linux
+            </a>
           
         </div>
         <div class="markdown mb-8" v-pre>
-          <p>操作系统：<code>CentOS 7.6 64bit</code><br>
-Webserver：<code>Nginx</code></p>
-<p><a href="https://certbot.eff.org/lets-encrypt/centosrhel7-nginx">Certbot官方安装文档</a></p>
-<h2 id="letsencrypt">Letsencrypt</h2>
-<h3 id="一-安装snap">一、安装snap</h3>
-<ol>
-<li>安装snapd<br>
-<code>yum install snapd</code></li>
-</ol>
-<blockquote>
-<p>安装目录在<code>/var/lib/snapd</code></p>
-</blockquote>
-<ol start="2">
-<li>
-<p>启用snapd.socket。<br>
-<code>systemctl enable --now snapd.socket</code></p>
-</li>
-<li>
-<p>创建/var/lib/snapd/snap和/snap之间的链接。<br>
-<code>ln -s /var/lib/snapd/snap /snap</code></p>
-</li>
-<li>
-<p>更新snap至最新版本</p>
-</li>
-</ol>
-<pre><code class="language-shell">sudo snap install core
-sudo snap refresh core
+          <p>操作系统：<code>CentOS 7.6 64bit</code></p>
+<p>sftp客户端工具连接sftp服务器时，闲置一段时间后，就会跟服务器断开，重新连接。响应速度相比重新建立连接要慢很多。</p>
+<h3 id="1-修改-sshd_config-配置文件">1. 修改 sshd_config 配置文件</h3>
+<p><code>vim /etc/ssh/sshd_config</code><br>
+<img src="https://tanglinghan.github.io/post-images/1617502612289.png" alt="" loading="lazy"></p>
+<pre><code class="language-shell">vim /etc/ssh/sshd_config
+------------------------------------------------
+TCPKeepAlive yes
+ClientAliveInterval 60
+ClientAliveCountMax 120
 </code></pre>
-<h3 id="二-安装certbot">二、安装Certbot</h3>
-<ol>
-<li>
-<p>通过snap安装certbot。<br>
-<code>snap install --classic certbot</code></p>
-</li>
-<li>
-<p>创建/snap/bin/certbot的软链接，方便certbot命令的使用。<br>
-<code>ln -s /snap/bin/certbot /usr/bin/certbot</code></p>
-</li>
-</ol>
-<h3 id="三-使用">三、使用</h3>
-<ol>
-<li>获取证书</li>
-</ol>
-<ul>
-<li>
-<p>通过80端口, 仅生成证书<br>
-<code>certbot --nginx --email xxx@mail.com -d www.aaa.com</code></p>
 <blockquote>
-<p>多个域名多加几个<code>-d</code>参数<br>
-例如: <code>certbot --nginx --email xxx@mail.com -d www.aaa.com -d www.bbb.com</code></p>
+<p>ClientAliveInterval ： 每隔60s 发送心跳数据<br>
+ClientAliveCountMax ： 允许超时120次数，超过后断开链接</p>
 </blockquote>
-</li>
-<li>
-<p>通过80端口, 生成证书并自动修改nginx配置<br>
-<code>certbot certonly --nginx --email xxx@mail.com -d www.aaa.com</code></p>
-</li>
-<li>
-<p>通过NDS<br>
-<code>certbot certonly --manual --preferred-challenge dns -d www.aaa.com</code></p>
-</li>
-</ul>
-<p><img src="https://tanglinghan.github.io/post-images/1617461594013.png" alt="" loading="lazy"><br>
-根据它的提示, 要你先去给你的域名添加一条解析记录域名填 <code>_acme-challenge.www.aaa.com</code>, 解析类型为<code>TXT</code>, 值填他生成的那一串字符串, <strong>等你域名解析配置好之后再按enter键(划重点)</strong>。<br>
-然后会在<code>/etc/letsencrypt/live/www.aaa.com</code>目录下生成证书文件。</p>
-<ol>
-<li>更新证书<br>
-<code>certbot renew</code></li>
-</ol>
-<blockquote>
-<p>测试自动续约证书<br>
-<code>certbot renew --dry-run</code></p>
-</blockquote>
+<pre><code>我的配置文件上面三行默认是注释的, 打开注释并按自己的想法设置即可
+</code></pre>
+<h3 id="2-重启sshd服务">2. 重启sshd服务</h3>
+<p><code>systemctl restart sshd</code></p>
 
         </div>
         <!-- Share to Twitter, Weibo, Telegram -->
@@ -202,11 +133,10 @@ sudo snap refresh core
         <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#letsencrypt">Letsencrypt</a>
+<li>
 <ul>
-<li><a href="#%E4%B8%80-%E5%AE%89%E8%A3%85snap">一、安装snap</a></li>
-<li><a href="#%E4%BA%8C-%E5%AE%89%E8%A3%85certbot">二、安装Certbot</a></li>
-<li><a href="#%E4%B8%89-%E4%BD%BF%E7%94%A8">三、使用</a></li>
+<li><a href="#1-%E4%BF%AE%E6%94%B9-sshd_config-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6">1. 修改 sshd_config 配置文件</a></li>
+<li><a href="#2-%E9%87%8D%E5%90%AFsshd%E6%9C%8D%E5%8A%A1">2. 重启sshd服务</a></li>
 </ul>
 </li>
 </ul>
