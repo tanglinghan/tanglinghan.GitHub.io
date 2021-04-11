@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://tanglinghan.github.io</id>
     <title>山河在</title>
-    <updated>2021-04-04T04:54:09.713Z</updated>
+    <updated>2021-04-11T08:16:44.422Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://tanglinghan.github.io"/>
     <link rel="self" href="https://tanglinghan.github.io/atom.xml"/>
@@ -11,139 +11,457 @@
     <icon>https://tanglinghan.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, 山河在</rights>
     <entry>
-        <title type="html"><![CDATA[Linux - 安装Nginx]]></title>
-        <id>https://tanglinghan.github.io/post/linux-an-zhuang-nginx/</id>
-        <link href="https://tanglinghan.github.io/post/linux-an-zhuang-nginx/">
+        <title type="html"><![CDATA[Httpclient - RestTemplate]]></title>
+        <id>https://tanglinghan.github.io/post/httpclient-resttemplate/</id>
+        <link href="https://tanglinghan.github.io/post/httpclient-resttemplate/">
         </link>
-        <updated>2021-04-04T02:45:47.000Z</updated>
-        <content type="html"><![CDATA[<p>操作系统：<code>CentOS 7.6 64bit</code></p>
-<p>安装环境<br>
-<code>yum -y install gcc pcre-devel zlib-devel openssl openssl-devel</code><br>
-nginx下载地址：<a href="https://nginx.org/download/">https://nginx.org/download/</a></p>
-<p>上传压缩包, 解压</p>
-<pre><code class="language-shell">tar -zxvf nginx-1.18.0.tar.gz
-cd nginx-1.18.0/
+        <updated>2021-04-11T07:59:58.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="注册resttemplate">注册RestTemplate</h3>
+<pre><code class="language-Java">@Component
+public class BeanRegister {
+
+    @Bean
+    public RestTemplate restTemplate(ClientHttpRequestFactory factory) {
+        return new RestTemplate(factory);
+    }
+
+    @Bean
+    public ClientHttpRequestFactory simpleClientHttpRequestFactory() {
+        SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
+//        factory.setReadTimeout(5000);
+//        factory.setConnectTimeout(15000);
+        // 设置代理
+        //factory.setProxy(null);
+        return factory;
+    }
+
+    /**
+     * org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException: The field file exceeds its maximum permitted size of 1048576 bytes., code=400
+     * 设置tomcat上传文件大小限制
+     *
+     * @return /
+     */
+    @Bean
+    public MultipartConfigElement multipartConfigElement() {
+        MultipartConfigFactory factory = new MultipartConfigFactory();
+        //允许上传的文件最大值 (//KB,MB)
+        factory.setMaxFileSize(DataSize.parse(&quot;50MB&quot;));
+        /// 设置总上传数据总大小
+        factory.setMaxRequestSize(DataSize.parse(&quot;100MB&quot;));
+        return factory.createMultipartConfig();
+    }
+}
 </code></pre>
-<p>配置并安装SSL模块<br>
-<code>./configure --prefix=/usr/local/nginx --with-http_stub_status_module --with-http_ssl_module</code></p>
-<blockquote>
-<p><code>/usr/local/nginx</code>是安装目录, 可以换成自己想要安装的目录</p>
-</blockquote>
-<p>编译</p>
-<pre><code class="language-shell">make
-make install
+<h3 id="get请求-并设置cookie和header">GET请求, 并设置Cookie和Header</h3>
+<pre><code class="language-Java">    /**
+     * // 1. 无参,不指定Header调用
+     * //        ResponseEntity&lt;R&gt; forEntity = restTemplate.getForEntity(URL_USER_LIST, R.class);
+     * &lt;p&gt;
+     * // 2. 无参,指定Header调用 get请求需要使用exchange()
+     */
+    @Test
+    public void testGetUserList() {
+        // 1. 无参,不指定Header调用
+//        ResponseEntity&lt;R&gt; forEntity = restTemplate.getForEntity(URL_USER_LIST, R.class);
+
+        // 2. 无参,指定Header调用 get请求需要使用exchange()
+
+        // 封装请求头
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.set(HttpHeaders.COOKIE, &quot;JSESSIONID=&quot; + JSESSIONID);
+        httpHeaders.set(&quot;token&quot;, TOKEN);
+        HttpEntity&lt;String&gt; httpEntity = new HttpEntity&lt;&gt;(null, httpHeaders);
+
+
+        ResponseEntity&lt;R&gt; forEntity1 = restTemplate.exchange(URL_GET_USER_LIST, HttpMethod.GET, httpEntity, R.class);
+        System.out.println(&quot;forEntity1.getBody() = &quot; + forEntity1.getBody());
+
+    }
 </code></pre>
-<p>检查配置<br>
-<code>/usr/local/nginx/sbin/nginx -t</code><br>
-<img src="https://tanglinghan.github.io/post-images/1617505524665.png" alt="" loading="lazy"></p>
-<p>启动nginx<br>
-<code>/usr/local/nginx/sbin/nginx</code></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[修改ssh登录和sftp连接超时问题]]></title>
-        <id>https://tanglinghan.github.io/post/modifySSHAndSFTPConnectTimeout/</id>
-        <link href="https://tanglinghan.github.io/post/modifySSHAndSFTPConnectTimeout/">
-        </link>
-        <updated>2021-04-04T02:05:21.000Z</updated>
-        <content type="html"><![CDATA[<p>操作系统：<code>CentOS 7.6 64bit</code></p>
-<p>sftp客户端工具连接sftp服务器时，闲置一段时间后，就会跟服务器断开，重新连接。响应速度相比重新建立连接要慢很多。</p>
-<h3 id="1-修改-sshd_config-配置文件">1. 修改 sshd_config 配置文件</h3>
-<p><code>vim /etc/ssh/sshd_config</code><br>
-<img src="https://tanglinghan.github.io/post-images/1617502612289.png" alt="" loading="lazy"></p>
-<pre><code class="language-shell">vim /etc/ssh/sshd_config
-------------------------------------------------
-TCPKeepAlive yes
-ClientAliveInterval 60
-ClientAliveCountMax 120
+<h3 id="get请求传参">GET请求传参</h3>
+<pre><code class="language-Java">private static final String URL_GET_USER_ID = &quot;http://124.71.56.21:8081/get/user/id?uid={uid}&quot;;
+    /**
+     * 带参,并设置请求头,使用map封装参数
+     */
+    @Test
+    public void testGetUserBYId() {
+        // 带参,指定Header调用 get请求需要使用exchange()
+        List&lt;String&gt; cookies = new ArrayList&lt;&gt;();
+        cookies.add(&quot;JSESSIONID=&quot; + JSESSIONID);
+
+        // 封装请求头
+        HttpHeaders httpHeaders = new HttpHeaders();
+//        httpHeaders.put(HttpHeaders.COOKIE, cookies);
+        httpHeaders.set(HttpHeaders.COOKIE, &quot;JSESSIONID=&quot; + JSESSIONID);
+        httpHeaders.set(&quot;token&quot;, TOKEN);
+        HttpEntity&lt;String&gt; httpEntity = new HttpEntity&lt;&gt;(httpHeaders);
+
+        // 封装参数
+        Map&lt;String, Object&gt; paramMap = new HashMap&lt;&gt;();
+        paramMap.put(&quot;uid&quot;, &quot;1&quot;);
+
+        // 请求url要使用占位符
+        ResponseEntity&lt;R&gt; forEntity1 = restTemplate.exchange(URL_GET_USER_ID, HttpMethod.GET, httpEntity, R.class, paramMap);
+        System.out.println(&quot;forEntity1.getBody() = &quot; + forEntity1.getBody());
+    }
 </code></pre>
-<blockquote>
-<p>ClientAliveInterval ： 每隔60s 发送心跳数据<br>
-ClientAliveCountMax ： 允许超时120次数，超过后断开链接</p>
-</blockquote>
-<pre><code>我的配置文件上面三行默认是注释的, 打开注释并按自己的想法设置即可
-</code></pre>
-<h3 id="2-重启sshd服务">2. 重启sshd服务</h3>
-<p><code>systemctl restart sshd</code></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Letsencrypt]]></title>
-        <id>https://tanglinghan.github.io/post/letsencrypt/</id>
-        <link href="https://tanglinghan.github.io/post/letsencrypt/">
-        </link>
-        <updated>2021-04-03T13:08:16.000Z</updated>
-        <content type="html"><![CDATA[<p>操作系统：<code>CentOS 7.6 64bit</code><br>
-Webserver：<code>Nginx</code></p>
-<p><a href="https://certbot.eff.org/lets-encrypt/centosrhel7-nginx">Certbot官方安装文档</a></p>
-<h2 id="letsencrypt">Letsencrypt</h2>
-<h3 id="一-安装snap">一、安装snap</h3>
+<h3 id="post请求">POST请求</h3>
 <ol>
-<li>安装snapd<br>
-<code>yum install snapd</code></li>
+<li>表单提交</li>
 </ol>
-<blockquote>
-<p>安装目录在<code>/var/lib/snapd</code></p>
-</blockquote>
+<pre><code class="language-Java">    /**
+     * 表单提交, 要使用MultiValueMap
+     */
+    @Test
+    public void testPostUserByForm() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        headers.set(HttpHeaders.COOKIE, &quot;JSESSIONID=&quot; + JSESSIONID);
+        headers.set(&quot;token&quot;, TOKEN);
+
+        MultiValueMap&lt;String, Object&gt; map = new LinkedMultiValueMap&lt;String, Object&gt;();
+        map.add(&quot;uid&quot;, 4);
+        map.add(&quot;username&quot;, &quot;嘻嘻&quot;);
+        map.add(&quot;age&quot;, 24);
+        map.add(&quot;address&quot;, &quot;潮汕&quot;);
+        HttpEntity&lt;MultiValueMap&lt;String, Object&gt;&gt; request = new HttpEntity&lt;MultiValueMap&lt;String, Object&gt;&gt;(map, headers);
+
+        ResponseEntity&lt;R&gt; response = restTemplate.postForEntity(URL_POST_USER_BY_FORM, request, R.class);
+        System.out.println(&quot;response = &quot; + response.getBody());
+    }
+</code></pre>
 <ol start="2">
-<li>
-<p>启用snapd.socket。<br>
-<code>systemctl enable --now snapd.socket</code></p>
-</li>
-<li>
-<p>创建/var/lib/snapd/snap和/snap之间的链接。<br>
-<code>ln -s /var/lib/snapd/snap /snap</code></p>
-</li>
-<li>
-<p>更新snap至最新版本</p>
-</li>
+<li>JSON提交</li>
 </ol>
-<pre><code class="language-shell">sudo snap install core
-sudo snap refresh core
+<pre><code class="language-Java">    /**
+     * JSON提交
+     */
+    @Test
+    public void testPostUserByJson() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set(&quot;Accept&quot;, MediaType.APPLICATION_JSON_VALUE);
+        headers.set(HttpHeaders.COOKIE, &quot;JSESSIONID=&quot; + JSESSIONID);
+        headers.set(&quot;token&quot;, TOKEN);
+
+        User user = new User().setUid(5).setUsername(&quot;haha&quot;).setAge(66).setAddress(&quot;龙岗&quot;);
+        String jsonString = JSON.toJSONString(user);
+        System.out.println(&quot;jsonString = &quot; + jsonString);
+
+//        JSONObject jsonString = new JSONObject();
+//        jsonString.put(&quot;uid&quot;, 5);
+//        jsonString.put(&quot;username&quot;, &quot;haha&quot;);
+//        jsonString.put(&quot;age&quot;, 77);
+//        jsonString.put(&quot;address&quot;, &quot;龙岗&quot;);
+
+        HttpEntity&lt;String&gt; request = new HttpEntity&lt;&gt;(jsonString, headers);
+
+        ResponseEntity&lt;R&gt; response = restTemplate.postForEntity(URL_POST_USER_BY_JSON, request, R.class);
+        System.out.println(&quot;response = &quot; + response.getBody());
+    }
 </code></pre>
-<h3 id="二-安装certbot">二、安装Certbot</h3>
+<h3 id="上传文件">上传文件</h3>
 <ol>
-<li>
-<p>通过snap安装certbot。<br>
-<code>snap install --classic certbot</code></p>
-</li>
-<li>
-<p>创建/snap/bin/certbot的软链接，方便certbot命令的使用。<br>
-<code>ln -s /snap/bin/certbot /usr/bin/certbot</code></p>
-</li>
+<li>设置Tomcat上传限制</li>
 </ol>
-<h3 id="三-使用">三、使用</h3>
-<ol>
-<li>获取证书</li>
-</ol>
-<ul>
-<li>
-<p>通过80端口, 仅生成证书<br>
-<code>certbot --nginx --email xxx@mail.com -d www.aaa.com</code></p>
+<pre><code class="language-Java">    /**
+     * org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException: The field file exceeds its maximum permitted size of 1048576 bytes., code=400
+     * 设置tomcat上传文件大小限制
+     *
+     * @return /
+     */
+    @Bean
+    public MultipartConfigElement multipartConfigElement() {
+        MultipartConfigFactory factory = new MultipartConfigFactory();
+        //允许上传的文件最大值 (//KB,MB)
+        factory.setMaxFileSize(DataSize.parse(&quot;50MB&quot;));
+        /// 设置总上传数据总大小
+        factory.setMaxRequestSize(DataSize.parse(&quot;100MB&quot;));
+        return factory.createMultipartConfig();
+    }
+</code></pre>
+<p>案例:</p>
+<pre><code class="language-Java">    /**
+     * 上传文件
+     */
+    @Test
+    public void testUploadFile() {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.MULTIPART_FORM_DATA);
+        httpHeaders.set(HttpHeaders.COOKIE, &quot;JSESSIONID=&quot; + JSESSIONID);
+        httpHeaders.set(&quot;token&quot;, TOKEN);
+
+        MultiValueMap&lt;String, Object&gt; paramMap = new LinkedMultiValueMap&lt;&gt;();
+        paramMap.add(&quot;file&quot;, new ClassPathResource(&quot;yuque_diagram.jpg&quot;));
+        paramMap.add(&quot;file&quot;, new ClassPathResource(&quot;线程类图.png&quot;));
+        paramMap.add(&quot;file&quot;, new ClassPathResource(&quot;acane_madder - 庭園にて。.mp3&quot;));
+        paramMap.add(&quot;isErr&quot;, &quot;&quot;);
+
+        HttpEntity&lt;MultiValueMap&lt;String, Object&gt;&gt; httpEntity = new HttpEntity&lt;MultiValueMap&lt;String, Object&gt;&gt;(paramMap, httpHeaders);
+
+        ResponseEntity&lt;R&gt; response = restTemplate.postForEntity(URL_POST_FILE_UP1, httpEntity, R.class);
+        System.out.println(&quot;response = &quot; + response.getBody());
+        System.out.println(&quot;response.getStatusCode() = &quot; + response.getStatusCode());
+        System.out.println(&quot;response.getStatusCode().is2xxSuccessful() = &quot; + response.getStatusCode().is2xxSuccessful());
+
+    }
+</code></pre>
 <blockquote>
-<p>多个域名多加几个<code>-d</code>参数<br>
-例如: <code>certbot --nginx --email xxx@mail.com -d www.aaa.com -d www.bbb.com</code></p>
+<p><a href="https://github.com/tanglinghan/demo-collection/tree/main/http-demo">代码</a></p>
 </blockquote>
-</li>
-<li>
-<p>通过80端口, 生成证书并自动修改nginx配置<br>
-<code>certbot certonly --nginx --email xxx@mail.com -d www.aaa.com</code></p>
-</li>
-<li>
-<p>通过NDS<br>
-<code>certbot certonly --manual --preferred-challenge dns -d www.aaa.com</code></p>
-</li>
-</ul>
-<p><img src="https://tanglinghan.github.io/post-images/1617461594013.png" alt="" loading="lazy"><br>
-根据它的提示, 要你先去给你的域名添加一条解析记录域名填 <code>_acme-challenge.www.aaa.com</code>, 解析类型为<code>TXT</code>, 值填他生成的那一串字符串, <strong>等你域名解析配置好之后再按enter键(划重点)</strong>。<br>
-然后会在<code>/etc/letsencrypt/live/www.aaa.com</code>目录下生成证书文件。</p>
-<ol>
-<li>更新证书<br>
-<code>certbot renew</code></li>
-</ol>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Httpclient - Spring5 Webclient]]></title>
+        <id>https://tanglinghan.github.io/post/spring5-webclient/</id>
+        <link href="https://tanglinghan.github.io/post/spring5-webclient/">
+        </link>
+        <updated>2021-04-10T12:51:41.000Z</updated>
+        <content type="html"><![CDATA[<p>Spring5带来了新的响应式web开发框架WebFlux，同时，也引入了新的HttpClient框架WebClient。WebClient是Spring5中引入的执行 HTTP 请求的非阻塞、反应式客户端。</p>
+<p>它对同步和异步以及流方案都有很好的支持，WebClient发布后，RestTemplate将在将来版本中弃用，并且不会向前添加主要新功能。</p>
 <blockquote>
-<p>测试自动续约证书<br>
-<code>certbot renew --dry-run</code></p>
+<p>public interface WebClient<br>
+Non-blocking, reactive client to perform HTTP requests, exposing a fluent, reactive &gt; API over underlying HTTP client libraries such as Reactor Netty.<br>
+Use static factory methods create() or create(String), or builder() to prepare an  &gt; instance.</p>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>For examples with a response body see:</p>
+<blockquote>
+<ul>
+<li><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/reactive/function/client/WebClient.RequestHeadersSpec.html#retrieve--">retrieve()</a></li>
+<li><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/reactive/function/client/WebClient.RequestHeadersSpec.html#exchangeToMono-java.util.function.Function-">exchangeToMono()</a></li>
+<li><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/reactive/function/client/WebClient.RequestHeadersSpec.html#exchangeToFlux-java.util.function.Function-">exchangeToFlux()</a></li>
+</ul>
+</blockquote>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>For examples with a request body see:</p>
+<blockquote>
+<blockquote>
+<ul>
+<li><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/reactive/function/client/WebClient.RequestBodySpec.html#bodyValue-java.lang.Object-">bodyValue(Object)</a></li>
+<li><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/reactive/function/client/WebClient.RequestBodySpec.html#body-P-java.lang.Class-">body(Publisher,Class)</a></li>
+</ul>
+</blockquote>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>Since:</p>
+<blockquote>
+<p>5.0</p>
+</blockquote>
+</blockquote>
+<h3 id="构建webclient对象">构建WebClient对象</h3>
+<pre><code class="language-Java">    private static final String JSESSIONID = &quot;6dfd8a2d-d6de-40e5-9611-3f604b402a8b&quot;;
+    private static final String TOKEN = &quot;6dfd8a2dd6de40e596113f604b402a8b&quot;;
+    private static final String BASE_URL = &quot;http://124.71.56.21:8081&quot;;
+
+    private static final WebClient client = WebClient.builder()
+            .baseUrl(BASE_URL)
+            .defaultHeader(&quot;token&quot;, TOKEN)
+            .defaultCookie(&quot;JSESSIONID&quot;, JSESSIONID)
+            .build();
+</code></pre>
+<p>这里已经这个对象加上默认的请求头和cookie了.</p>
+<h3 id="请求设置cookie和header">请求设置Cookie和Header</h3>
+<pre><code class="language-Java">    @Test
+    public void testGetUserList() {
+        Mono&lt;R&gt; resp = client.get().uri(&quot;/get/user/list&quot;)
+                .header(&quot;token&quot;, TOKEN)
+                .cookie(&quot;JSESSIONID&quot;, JSESSIONID)
+                .retrieve()
+                .bodyToMono(R.class);
+
+        System.out.println(&quot;resp = &quot; + resp.block());
+    }
+</code></pre>
+<h3 id="get请求">GET请求</h3>
+<ol>
+<li>使用使用placeholder传递参数</li>
+</ol>
+<pre><code class="language-Java">    /**
+     * 使用placeholder传递参数 ,并设置请求头和cookie
+     */
+    @Test
+    public void testGetUserBYId() {
+        Mono&lt;R&gt; resp = client.get()
+                // 多个参数也可以直接放到map中,参数名与placeholder对应上即可
+                .uri(&quot;/get/user/id?uid={uid}&quot;, 4) // 使用占位符
+                .retrieve()
+                .bodyToMono(R.class);
+        System.out.println(&quot;resp = &quot; + resp.block());
+    }
+</code></pre>
+<ol start="2">
+<li>使用uriBuilder传递参数</li>
+</ol>
+<pre><code class="language-Java">    /**
+     * 使用uriBuilder传递参数
+     */
+    @Test
+    public void testGet2() {
+        Mono&lt;String&gt; resp = WebClient.create()
+                .get()
+                .uri(uriBuilder -&gt; uriBuilder
+                        .scheme(&quot;http&quot;)
+                        .host(&quot;weathernew.pae.baidu.com&quot;)
+                        .path(&quot;/weathernew/pc&quot;)
+                        .queryParam(&quot;query&quot;, &quot;深圳天气&quot;)
+                        .queryParam(&quot;srcid&quot;, 4982)
+                        .queryParam(&quot;city_name&quot;, &quot;香港&quot;)
+                        .queryParam(&quot;province_name&quot;, &quot;香港&quot;)
+                        .build())
+                .retrieve()
+                .bodyToMono(String.class);
+        log.info(&quot;result:{}&quot;, resp.block());
+    }
+</code></pre>
+<h3 id="post请求">POST请求</h3>
+<ol>
+<li>表单提交</li>
+</ol>
+<pre><code class="language-Java">    /**
+     * 表单提交
+     */
+    @Test
+    public void testPostUserByForm() {
+        MultiValueMap&lt;String, String&gt; formData = new LinkedMultiValueMap&lt;&gt;();
+        formData.add(&quot;uid&quot;, &quot;4&quot;);
+        formData.add(&quot;username&quot;, &quot;相柳&quot;);
+        formData.add(&quot;age&quot;, &quot;14&quot;);
+        formData.add(&quot;address&quot;, &quot;梧桐山&quot;);
+
+        Mono&lt;R&gt; resp = client.post()
+                .uri(&quot;post/user/addByForm&quot;)
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .body(BodyInserters.fromFormData(formData))
+                .retrieve().bodyToMono(R.class);
+
+        log.info(&quot;result:{}&quot;, resp.block());
+    }
+</code></pre>
+<ol start="2">
+<li>JSON格式数据提交</li>
+</ol>
+<pre><code class="language-Java">    /**
+     * JSON提交数据
+     */
+    @Test
+    public void testPostUserByJson() {
+        User user = new User().setUid(5).setUsername(&quot;八岐大蛇&quot;).setAge(119).setAddress(&quot;东海&quot;);
+
+        //  1. 通过bean方式
+        Mono&lt;R&gt; resp1 = client.post()
+                .uri(&quot;post/user/addByJson&quot;)
+                .contentType(MediaType.APPLICATION_JSON)
+                // 使用bean方式提交JSON数据
+                .body(Mono.just(user), User.class)
+                .retrieve().bodyToMono(R.class);
+
+        // 2. 通过JSON字符串
+        Mono&lt;R&gt; resp2 = client.post()
+                .uri(&quot;post/user/addByJson&quot;)
+                .contentType(MediaType.APPLICATION_JSON)
+                // 使用bean方式提交JSON数据
+                .body(BodyInserters.fromValue(JSON.toJSONString(user)))
+                .retrieve().bodyToMono(R.class);
+
+        log.info(&quot;\nresult1:{}&quot;, resp1.block());
+        log.info(&quot;\nresult2:{}&quot;, resp2.block());
+    }
+</code></pre>
+<h3 id="上传文件-请求异常处理">上传文件, 请求异常处理</h3>
+<ol>
+<li>retrieve()</li>
+</ol>
+<pre><code class="language-Java">    /**
+     * 上传文件  设置异常处理
+     * &lt;p&gt;
+     * onStatus根据status code进行异常适配
+     * doOnError异常适配
+     * onErrorReturn返回默认值
+     */
+    @Test
+    public void testUploadFile() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_PNG);
+
+//        HttpEntity&lt;ClassPathResource&gt; entity1 = new HttpEntity&lt;&gt;(new ClassPathResource(&quot;yuque_diagram.jpg&quot;), headers);
+        HttpEntity&lt;ClassPathResource&gt; entity1 = new HttpEntity&lt;&gt;(new ClassPathResource(&quot;yuque_diagram.jpg&quot;));
+//        HttpEntity&lt;ClassPathResource&gt; entity2 = new HttpEntity&lt;&gt;(new ClassPathResource(&quot;线程类图.png&quot;), headers);
+        HttpEntity&lt;ClassPathResource&gt; entity2 = new HttpEntity&lt;&gt;(new ClassPathResource(&quot;线程类图.png&quot;));
+        HttpEntity&lt;ClassPathResource&gt; entity3 = new HttpEntity&lt;&gt;(new ClassPathResource(&quot;acane_madder - 庭園にて。.mp3&quot;));
+
+        MultiValueMap&lt;String, Object&gt; parts = new LinkedMultiValueMap&lt;&gt;();
+//        parts.add(&quot;file&quot;, entity1);
+        parts.add(&quot;file&quot;, entity2);
+
+        WebClient.ResponseSpec responseSpec = client.post()
+                .uri(&quot;/file/up1&quot;)
+                .contentType(MediaType.MULTIPART_FORM_DATA)
+                .body(BodyInserters.fromMultipartData(parts))
+                .retrieve();
+
+        Mono&lt;R&gt; onReturn = responseSpec.onStatus(
+                HttpStatus::is4xxClientError, resp -&gt; {
+                    log.error(&quot;error:{}, msg:{}&quot;, resp.statusCode().value(), resp.statusCode().getReasonPhrase());
+                    return Mono.error(new RuntimeException(resp.statusCode().value() + &quot; : &quot; + resp.statusCode().getReasonPhrase()));
+                }
+        )
+                .bodyToMono(R.class)
+                .doOnError(
+                        WebClientResponseException.class, err -&gt; {
+                            log.info(&quot;ERROR status:{}, msg:{}&quot;, err.getRawStatusCode(), err.getResponseBodyAsString());
+                            throw new RuntimeException(err.getMessage());
+                        }
+                )
+                .onErrorReturn(R.fail(&quot;网络异常&quot;));
+
+        log.info(&quot;\nresult: {}&quot;, onReturn.block());
+    }
+</code></pre>
+<ol start="2">
+<li>exchangeToMono()</li>
+</ol>
+<pre><code class="language-Java">    @Test
+    public void testUploadFile2() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_PNG);
+
+//        HttpEntity&lt;ClassPathResource&gt; entity1 = new HttpEntity&lt;&gt;(new ClassPathResource(&quot;yuque_diagram.jpg&quot;), headers);
+        HttpEntity&lt;ClassPathResource&gt; entity1 = new HttpEntity&lt;&gt;(new ClassPathResource(&quot;yuque_diagram.jpg&quot;));
+//        HttpEntity&lt;ClassPathResource&gt; entity2 = new HttpEntity&lt;&gt;(new ClassPathResource(&quot;线程类图.png&quot;), headers);
+        HttpEntity&lt;ClassPathResource&gt; entity2 = new HttpEntity&lt;&gt;(new ClassPathResource(&quot;线程类图.png&quot;));
+        HttpEntity&lt;ClassPathResource&gt; entity3 = new HttpEntity&lt;&gt;(new ClassPathResource(&quot;acane_madder - 庭園にて。.mp3&quot;));
+
+        MultiValueMap&lt;String, Object&gt; parts = new LinkedMultiValueMap&lt;&gt;();
+        parts.add(&quot;file&quot;, entity1);
+        parts.add(&quot;file&quot;, entity2);
+        parts.add(&quot;file&quot;, entity3);
+
+        Mono&lt;Serializable&gt; serializableMono = client.post()
+                .uri(&quot;/file/up1?isErr={isErr}&quot;, &quot;isErr&quot;)
+                .contentType(MediaType.MULTIPART_FORM_DATA)
+                .body(BodyInserters.fromMultipartData(parts))
+                .exchangeToMono(
+                        resp -&gt; {
+                            if (resp.statusCode().equals(HttpStatus.OK)) {
+                                return resp.bodyToMono(R.class);
+                            } else if (resp.statusCode().is4xxClientError()) {
+                                return Mono.error(new RuntimeException(resp.statusCode().value() + &quot; : &quot; + resp.statusCode().getReasonPhrase()));
+                            } else {
+                                return resp.createException().flatMap(Mono::error);
+                            }
+                        }
+                );
+        R block = ((R) serializableMono.block());
+        System.out.println(&quot;block = &quot; + block);
+    }
+</code></pre>
+<blockquote>
+<p><a href="https://github.com/tanglinghan/demo-collection/tree/main/http-demo">代码</a></p>
 </blockquote>
 ]]></content>
     </entry>
@@ -300,6 +618,63 @@ passwd: all authentication tokens updated successfully.
 常用的选项是<code>-r</code>，它的作用是把用户的主目录一起删除。</p>
 <p>例如：<code>userdel -r sam</code><br>
 此命令删除用户sam在系统文件中（主要是/etc/passwd, /etc/shadow, /etc/group等）的记录，同时删除用户的主目录。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[修改ssh登录和sftp连接超时问题]]></title>
+        <id>https://tanglinghan.github.io/post/modifySSHAndSFTPConnectTimeout/</id>
+        <link href="https://tanglinghan.github.io/post/modifySSHAndSFTPConnectTimeout/">
+        </link>
+        <updated>2020-03-04T02:05:21.000Z</updated>
+        <content type="html"><![CDATA[<p>操作系统：<code>CentOS 7.6 64bit</code></p>
+<p>sftp客户端工具连接sftp服务器时，闲置一段时间后，就会跟服务器断开，重新连接。响应速度相比重新建立连接要慢很多。</p>
+<h3 id="1-修改-sshd_config-配置文件">1. 修改 sshd_config 配置文件</h3>
+<p><code>vim /etc/ssh/sshd_config</code><br>
+<img src="https://tanglinghan.github.io/post-images/1617502612289.png" alt="" loading="lazy"></p>
+<pre><code class="language-shell">vim /etc/ssh/sshd_config
+------------------------------------------------
+TCPKeepAlive yes
+ClientAliveInterval 60
+ClientAliveCountMax 120
+</code></pre>
+<blockquote>
+<p>ClientAliveInterval ： 每隔60s 发送心跳数据<br>
+ClientAliveCountMax ： 允许超时120次数，超过后断开链接</p>
+</blockquote>
+<pre><code>我的配置文件上面三行默认是注释的, 打开注释并按自己的想法设置即可
+</code></pre>
+<h3 id="2-重启sshd服务">2. 重启sshd服务</h3>
+<p><code>systemctl restart sshd</code></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Linux - 安装Nginx]]></title>
+        <id>https://tanglinghan.github.io/post/linux-an-zhuang-nginx/</id>
+        <link href="https://tanglinghan.github.io/post/linux-an-zhuang-nginx/">
+        </link>
+        <updated>2020-02-06T02:45:47.000Z</updated>
+        <content type="html"><![CDATA[<p>操作系统：<code>CentOS 7.6 64bit</code></p>
+<p>安装环境<br>
+<code>yum -y install gcc pcre-devel zlib-devel openssl openssl-devel</code><br>
+nginx下载地址：<a href="https://nginx.org/download/">https://nginx.org/download/</a></p>
+<p>上传压缩包, 解压</p>
+<pre><code class="language-shell">tar -zxvf nginx-1.18.0.tar.gz
+cd nginx-1.18.0/
+</code></pre>
+<p>配置并安装SSL模块<br>
+<code>./configure --prefix=/usr/local/nginx --with-http_stub_status_module --with-http_ssl_module</code></p>
+<blockquote>
+<p><code>/usr/local/nginx</code>是安装目录, 可以换成自己想要安装的目录</p>
+</blockquote>
+<p>编译</p>
+<pre><code class="language-shell">make
+make install
+</code></pre>
+<p>检查配置<br>
+<code>/usr/local/nginx/sbin/nginx -t</code><br>
+<img src="https://tanglinghan.github.io/post-images/1617505524665.png" alt="" loading="lazy"></p>
+<p>启动nginx<br>
+<code>/usr/local/nginx/sbin/nginx</code></p>
 ]]></content>
     </entry>
     <entry>
@@ -507,10 +882,83 @@ export PATH=$PATH:${JAVA_PATH}
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[Hello Guys!]]></title>
-        <id>https://tanglinghan.github.io/post/hello-guys/</id>
-        <link href="https://tanglinghan.github.io/post/hello-guys/">
+        <title type="html"><![CDATA[Letsencrypt]]></title>
+        <id>https://tanglinghan.github.io/post/letsencrypt/</id>
+        <link href="https://tanglinghan.github.io/post/letsencrypt/">
         </link>
-        <updated>2018-12-11T16:00:00.000Z</updated>
+        <updated>2019-12-31T13:08:16.000Z</updated>
+        <content type="html"><![CDATA[<p>操作系统：<code>CentOS 7.6 64bit</code><br>
+Webserver：<code>Nginx</code></p>
+<p><a href="https://certbot.eff.org/lets-encrypt/centosrhel7-nginx">Certbot官方安装文档</a></p>
+<h2 id="letsencrypt">Letsencrypt</h2>
+<h3 id="一-安装snap">一、安装snap</h3>
+<ol>
+<li>安装snapd<br>
+<code>yum install snapd</code></li>
+</ol>
+<blockquote>
+<p>安装目录在<code>/var/lib/snapd</code></p>
+</blockquote>
+<ol start="2">
+<li>
+<p>启用snapd.socket。<br>
+<code>systemctl enable --now snapd.socket</code></p>
+</li>
+<li>
+<p>创建/var/lib/snapd/snap和/snap之间的链接。<br>
+<code>ln -s /var/lib/snapd/snap /snap</code></p>
+</li>
+<li>
+<p>更新snap至最新版本</p>
+</li>
+</ol>
+<pre><code class="language-shell">sudo snap install core
+sudo snap refresh core
+</code></pre>
+<h3 id="二-安装certbot">二、安装Certbot</h3>
+<ol>
+<li>
+<p>通过snap安装certbot。<br>
+<code>snap install --classic certbot</code></p>
+</li>
+<li>
+<p>创建/snap/bin/certbot的软链接，方便certbot命令的使用。<br>
+<code>ln -s /snap/bin/certbot /usr/bin/certbot</code></p>
+</li>
+</ol>
+<h3 id="三-使用">三、使用</h3>
+<ol>
+<li>获取证书</li>
+</ol>
+<ul>
+<li>
+<p>通过80端口, 仅生成证书<br>
+<code>certbot --nginx --email xxx@mail.com -d www.aaa.com</code></p>
+<blockquote>
+<p>多个域名多加几个<code>-d</code>参数<br>
+例如: <code>certbot --nginx --email xxx@mail.com -d www.aaa.com -d www.bbb.com</code></p>
+</blockquote>
+</li>
+<li>
+<p>通过80端口, 生成证书并自动修改nginx配置<br>
+<code>certbot certonly --nginx --email xxx@mail.com -d www.aaa.com</code></p>
+</li>
+<li>
+<p>通过NDS<br>
+<code>certbot certonly --manual --preferred-challenge dns -d www.aaa.com</code></p>
+</li>
+</ul>
+<p><img src="https://tanglinghan.github.io/post-images/1617461594013.png" alt="" loading="lazy"><br>
+根据它的提示, 要你先去给你的域名添加一条解析记录域名填 <code>_acme-challenge.www.aaa.com</code>, 解析类型为<code>TXT</code>, 值填他生成的那一串字符串, <strong>等你域名解析配置好之后再按enter键(划重点)</strong>。<br>
+然后会在<code>/etc/letsencrypt/live/www.aaa.com</code>目录下生成证书文件。</p>
+<ol>
+<li>更新证书<br>
+<code>certbot renew</code></li>
+</ol>
+<blockquote>
+<p>测试自动续约证书<br>
+<code>certbot renew --dry-run</code></p>
+</blockquote>
+]]></content>
     </entry>
 </feed>
