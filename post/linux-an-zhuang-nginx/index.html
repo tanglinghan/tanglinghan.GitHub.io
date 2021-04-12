@@ -58,7 +58,7 @@ nginx下载地址：https://nginx.org/do...">
         </h1>
         
         <div class="mb-8 flex flex-wrap">
-          <div class="text-gray-400 text-sm mr-4">2020-02-06 · 1 min read</div>
+          <div class="text-gray-400 text-sm mr-4">2020-02-06 · 2 min read</div>
           
             <a href="https://tanglinghan.github.io/tag/qeJTjrwYS/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
               <i class="ri-hashtag"></i>
@@ -80,10 +80,54 @@ nginx下载地址：<a href="https://nginx.org/download/">https://nginx.org/down
 <pre><code class="language-shell">tar -zxvf nginx-1.18.0.tar.gz
 cd nginx-1.18.0/
 </code></pre>
-<p>配置并安装SSL模块<br>
+<p>配置并安装 性能统计模块, SSL模块<br>
 <code>./configure --prefix=/usr/local/nginx --with-http_stub_status_module --with-http_ssl_module</code></p>
 <blockquote>
 <p><code>/usr/local/nginx</code>是安装目录, 可以换成自己想要安装的目录</p>
+<blockquote>
+<p><code>--with-http_stub_status_module</code>主要用于查看Nginx的一些状态信息.<br>
+这个模块的作用于只能在server，location段。<br>
+在server段中添加一个status就可以了，这个status随意起名字。</p>
+</blockquote>
+</blockquote>
+<pre><code class="language-shell">server {
+    listen       80;
+    server_name  localhost;
+    #charset koi8-r;
+    #access_log  /var/log/nginx/host.access.log  main;
+    location /status{
+      stub_status on;
+   }
+    location / {
+        root   /usr/share/nginx/html;
+        index  index.html index.htm;
+    }
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   /usr/share/nginx/html;
+    }
+}
+</code></pre>
+<blockquote>
+<blockquote>
+<p>访问127.0.0.1/status</p>
+</blockquote>
+</blockquote>
+<p>Active connections: 1<br>
+server accepts handled requests<br>
+20 20 69<br>
+Reading: 0 Writing: 1 Waiting: 0</p>
+<blockquote>
+<blockquote>
+<p>参数介绍:<br>
+Active connections: 1当前活动的连接数<br>
+20 总连接数connection<br>
+20 成功的连接数connection 失败连接＝（总连接数－成功连接数）<br>
+69 总共处理的请求数requests<br>
+Reading: 0 读取客户端Header的信息数 请求头<br>
+Writing: 1 返回给客户端的header的信息数 响应头<br>
+Waiting: 0 等待的请求数，开启了keepalive</p>
+</blockquote>
 </blockquote>
 <p>编译</p>
 <pre><code class="language-shell">make
