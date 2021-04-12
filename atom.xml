@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://tanglinghan.github.io</id>
     <title>山河在</title>
-    <updated>2021-04-12T14:01:20.685Z</updated>
+    <updated>2021-04-12T14:27:34.649Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://tanglinghan.github.io"/>
     <link rel="self" href="https://tanglinghan.github.io/atom.xml"/>
@@ -542,8 +542,8 @@ emmm..., 给他来一下🔨</p>
     </entry>
     <entry>
         <title type="html"><![CDATA[Linux - 用户管理]]></title>
-        <id>https://tanglinghan.github.io/post/linux-chuang-jian-yong-hu-bing-xiu-gai-mi-ma/</id>
-        <link href="https://tanglinghan.github.io/post/linux-chuang-jian-yong-hu-bing-xiu-gai-mi-ma/">
+        <id>https://tanglinghan.github.io/post/linux-user-manager/</id>
+        <link href="https://tanglinghan.github.io/post/linux-user-manager/">
         </link>
         <updated>2020-04-22T15:09:10.000Z</updated>
         <content type="html"><![CDATA[<h2 id="一-创建用户">一： 创建用户</h2>
@@ -621,9 +621,76 @@ passwd: all authentication tokens updated successfully.
 ]]></content>
     </entry>
     <entry>
+        <title type="html"><![CDATA[Linux - 常用命令]]></title>
+        <id>https://tanglinghan.github.io/post/commonly-used-commands/</id>
+        <link href="https://tanglinghan.github.io/post/commonly-used-commands/">
+        </link>
+        <updated>2020-04-12T14:10:30.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="查看当前时间">查看当前时间</h3>
+<p><code>date</code></p>
+<h3 id="设置时区">设置时区</h3>
+<p><code>cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</code></p>
+<h3 id="查看ip地址">查看IP地址</h3>
+<p><code>ip addr</code></p>
+<h3 id="查看当前目录下各文件夹占用空间大小">查看当前目录下各文件夹占用空间大小</h3>
+<p><code>du -h --max-depth=1 ./</code></p>
+<h3 id="查看-linux-系统位数备注x86_64-表示-64-位系统-i686-i386-表示-32-位系统">查看 Linux 系统位数（备注：x86_64 表示 64 位系统， i686 i386 表示 32 位系统）</h3>
+<p><code>uname -a</code></p>
+<h3 id="将-sourcekerneltgz-解压到-sourcelinux-2629-目录">将 /source/kernel.tgz 解压到 /source/linux-2.6.29 目录</h3>
+<p><code>tar -zxvf /source/kernel.tgz -C source/linux-2.6.29</code></p>
+<h3 id="防火墙相关">防火墙相关</h3>
+<pre><code>systemctl start firewalld
+systemctl status firewalld 
+systemctl stop firewalld 
+</code></pre>
+<h3 id="重启防火墙">重启防火墙</h3>
+<p><code>firewall-cmd --reload</code></p>
+<h3 id="开放指定端口">开放指定端口</h3>
+<pre><code>firewall-cmd --zone=public --add-port=3306/tcp --permanent
+firewall-cmd --zone=public --add-port=6379/tcp --permanent
+firewall-cmd --zone=public --add-port=15672/tcp --permanent
+firewall-cmd --zone=public --add-port=5672/tcp --permanent
+firewall-cmd --zone=public --add-port=27017/tcp --permanent
+firewall-cmd --zone=public --add-port=8081/tcp --permanent 
+ 命令含义：
+--zone #作用域
+--add-port=1935/tcp  #添加端口，格式为：端口/通讯协议
+--permanent  #永久生效，没有此参数重启后失效
+</code></pre>
+<h3 id="服务器之间文件传输">服务器之间文件传输</h3>
+<pre><code>scp  -v -r [文件名称] root@[目标ip]:[目标服务器路径]
+scp -v -r front root@10.10.66.154:/usr/local/bfp-admin-2.0-dev
+</code></pre>
+<h3 id="查看磁盘信息">查看磁盘信息</h3>
+<pre><code>df -hT 
+df -h
+fdisk -l
+</code></pre>
+<h3 id="查看已有硬盘及分区">查看已有硬盘及分区</h3>
+<p><code>lsblk</code></p>
+<h2 id="搜索进程">搜索进程</h2>
+<pre><code class="language-shell">### 1. 根据端口号查进程 
+pid  lsof -i:[port]
+netstat -nap | grep [port]
+### 2. 根据进程号PID查端口
+netstat -nap | grep [pid]
+### 3. 根据服务名查看进程 pid
+ps -ef | grep java 
+</code></pre>
+<h3 id="查看服务安装路径">查看服务安装路径</h3>
+<p><code>ll /proc/pid/cwd</code></p>
+<h3 id="后台启动java进程">后台启动java进程</h3>
+<p><code>nohup java -jar tabifcp-eureka-2.0.3.RELEASE.jar &gt;./logs/tabifcp-eureka.log 2&gt;&amp;1 &amp;</code><br>
+或者<br>
+<code>nohup java -jar server-eureka-2.0.3.RELEASE.jar &amp;&gt;./logs/server-eureka.log &amp;</code></p>
+<h3 id="批量杀死筛选进程">批量杀死筛选进程</h3>
+<p><code>ps -ef | grep [关键字] | grep -v grep | awk '{print $2}' | xargs kill -9</code></p>
+]]></content>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[修改ssh登录和sftp连接超时问题]]></title>
-        <id>https://tanglinghan.github.io/post/modifySSHAndSFTPConnectTimeout/</id>
-        <link href="https://tanglinghan.github.io/post/modifySSHAndSFTPConnectTimeout/">
+        <id>https://tanglinghan.github.io/post/modify-SSHAndSFTP-ConnectTimeout/</id>
+        <link href="https://tanglinghan.github.io/post/modify-SSHAndSFTP-ConnectTimeout/">
         </link>
         <updated>2020-03-04T02:05:21.000Z</updated>
         <content type="html"><![CDATA[<p>操作系统：<code>CentOS 7.6 64bit</code></p>
@@ -649,8 +716,8 @@ ClientAliveCountMax ： 允许超时120次数，超过后断开链接</p>
     </entry>
     <entry>
         <title type="html"><![CDATA[Linux - 安装Nginx]]></title>
-        <id>https://tanglinghan.github.io/post/linux-an-zhuang-nginx/</id>
-        <link href="https://tanglinghan.github.io/post/linux-an-zhuang-nginx/">
+        <id>https://tanglinghan.github.io/post/linux-install-nginx/</id>
+        <link href="https://tanglinghan.github.io/post/linux-install-nginx/">
         </link>
         <updated>2020-02-06T02:45:47.000Z</updated>
         <content type="html"><![CDATA[<p>操作系统：<code>CentOS 7.6 64bit</code></p>
@@ -719,6 +786,7 @@ make install
 <img src="https://tanglinghan.github.io/post-images/1617505524665.png" alt="" loading="lazy"></p>
 <p>启动nginx<br>
 <code>/usr/local/nginx/sbin/nginx</code></p>
+<p><a href="http://shouce.jb51.net/nginx-doc/Text/1.3_install.html">参考文档</a></p>
 ]]></content>
     </entry>
     <entry>
@@ -906,8 +974,8 @@ management.tcp.ip=0.0.0.0
     </entry>
     <entry>
         <title type="html"><![CDATA[Linux - 配置jdk环境]]></title>
-        <id>https://tanglinghan.github.io/post/linux-pei-zhi-jdk-huan-jing/</id>
-        <link href="https://tanglinghan.github.io/post/linux-pei-zhi-jdk-huan-jing/">
+        <id>https://tanglinghan.github.io/post/linux-Configuration-JDK/</id>
+        <link href="https://tanglinghan.github.io/post/linux-Configuration-JDK/">
         </link>
         <updated>2020-02-04T07:24:13.000Z</updated>
         <content type="html"><![CDATA[<pre><code>vim /etc/profile
@@ -923,86 +991,6 @@ export PATH=$PATH:${JAVA_PATH}
 然后重新加载profile文件:</p>
 <pre><code>source /etc/profile
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Letsencrypt]]></title>
-        <id>https://tanglinghan.github.io/post/letsencrypt/</id>
-        <link href="https://tanglinghan.github.io/post/letsencrypt/">
-        </link>
-        <updated>2019-12-31T13:08:16.000Z</updated>
-        <content type="html"><![CDATA[<p>操作系统：<code>CentOS 7.6 64bit</code><br>
-Webserver：<code>Nginx</code></p>
-<p><a href="https://certbot.eff.org/lets-encrypt/centosrhel7-nginx">Certbot官方安装文档</a></p>
-<h2 id="letsencrypt">Letsencrypt</h2>
-<h3 id="一-安装snap">一、安装snap</h3>
-<ol>
-<li>安装snapd<br>
-<code>yum install snapd</code></li>
-</ol>
-<blockquote>
-<p>安装目录在<code>/var/lib/snapd</code></p>
-</blockquote>
-<ol start="2">
-<li>
-<p>启用snapd.socket。<br>
-<code>systemctl enable --now snapd.socket</code></p>
-</li>
-<li>
-<p>创建/var/lib/snapd/snap和/snap之间的链接。<br>
-<code>ln -s /var/lib/snapd/snap /snap</code></p>
-</li>
-<li>
-<p>更新snap至最新版本</p>
-</li>
-</ol>
-<pre><code class="language-shell">sudo snap install core
-sudo snap refresh core
-</code></pre>
-<h3 id="二-安装certbot">二、安装Certbot</h3>
-<ol>
-<li>
-<p>通过snap安装certbot。<br>
-<code>snap install --classic certbot</code></p>
-</li>
-<li>
-<p>创建/snap/bin/certbot的软链接，方便certbot命令的使用。<br>
-<code>ln -s /snap/bin/certbot /usr/bin/certbot</code></p>
-</li>
-</ol>
-<h3 id="三-使用">三、使用</h3>
-<ol>
-<li>获取证书</li>
-</ol>
-<ul>
-<li>
-<p>通过80端口, 仅生成证书<br>
-<code>certbot --nginx --email xxx@mail.com -d www.aaa.com</code></p>
-<blockquote>
-<p>多个域名多加几个<code>-d</code>参数<br>
-例如: <code>certbot --nginx --email xxx@mail.com -d www.aaa.com -d www.bbb.com</code></p>
-</blockquote>
-</li>
-<li>
-<p>通过80端口, 生成证书并自动修改nginx配置<br>
-<code>certbot certonly --nginx --email xxx@mail.com -d www.aaa.com</code></p>
-</li>
-<li>
-<p>通过NDS<br>
-<code>certbot certonly --manual --preferred-challenge dns -d www.aaa.com</code></p>
-</li>
-</ul>
-<p><img src="https://tanglinghan.github.io/post-images/1617461594013.png" alt="" loading="lazy"><br>
-根据它的提示, 要你先去给你的域名添加一条解析记录域名填 <code>_acme-challenge.www.aaa.com</code>, 解析类型为<code>TXT</code>, 值填他生成的那一串字符串, <strong>等你域名解析配置好之后再按enter键(划重点)</strong>。<br>
-然后会在<code>/etc/letsencrypt/live/www.aaa.com</code>目录下生成证书文件。</p>
-<ol>
-<li>更新证书<br>
-<code>certbot renew</code></li>
-</ol>
-<blockquote>
-<p>测试自动续约证书<br>
-<code>certbot renew --dry-run</code></p>
-</blockquote>
 ]]></content>
     </entry>
 </feed>
