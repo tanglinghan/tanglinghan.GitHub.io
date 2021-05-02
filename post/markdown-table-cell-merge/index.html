@@ -4,52 +4,70 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>记一次服务器惨遭挖矿 - 山河在</title>
+<title>解决在Markdown中的表格单元格合并的问题 - 山河在</title>
 <link rel="shortcut icon" href="https://tanglinghan.github.io/favicon.ico">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
 <link rel="stylesheet" href="https://tanglinghan.github.io/media/css/tailwind.css">
 <link rel="stylesheet" href="https://tanglinghan.github.io/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="记一次服务器惨遭挖矿 - 山河在 - Atom Feed" href="https://tanglinghan.github.io/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="解决在Markdown中的表格单元格合并的问题 - 山河在 - Atom Feed" href="https://tanglinghan.github.io/atom.xml">
 
     
 
-  <meta name="description" content="登进服务器一看CPU占用情况, 感觉不对劲(前天刚发现公司服务器惨遭挖矿,隐约之间已经猜到点什么东西, 有点兴奋), top一看, 呦, 好家伙:
+  <meta name="description" content="
+通过引入html table标签和跨行跨列属性实现单元格的合并
 
 
-首先查看定时任务：
+Markdown中表格的表达
 
-crontab -l
-
-
-crontab -e编辑定时任务, 按i..." />
-  <meta property="og:title" content="记一次服务器惨遭挖矿 - 山河在">
-  <meta property="og:description" content="登进服务器一看CPU占用情况, 感觉不对劲(前天刚发现公司服务器惨遭挖矿,隐约之间已经猜到点什么东西, 有点兴奋), top一看, 呦, 好家伙:
+表格内容对齐方式
 
 
-首先查看定时任务：
+HTML中表格的表达
+如何偷懒
 
-crontab -l
+
+Markdown中表格的表达
+Markdown 制作表格使用 | 来分隔不同的单..." />
+  <meta property="og:title" content="解决在Markdown中的表格单元格合并的问题 - 山河在">
+  <meta property="og:description" content="
+通过引入html table标签和跨行跨列属性实现单元格的合并
 
 
-crontab -e编辑定时任务, 按i..." />
+Markdown中表格的表达
+
+表格内容对齐方式
+
+
+HTML中表格的表达
+如何偷懒
+
+
+Markdown中表格的表达
+Markdown 制作表格使用 | 来分隔不同的单..." />
   <meta property="og:type" content="articles">
-  <meta property="og:url" content="https://tanglinghan.github.io/post/jiyiciwakuang/" />
+  <meta property="og:url" content="https://tanglinghan.github.io/post/markdown-table-cell-merge/" />
   <meta property="og:image" content="https://tanglinghan.github.io/images/avatar.png">
   <meta property="og:image:height" content="630">
   <meta property="og:image:width" content="1200">
-  <meta name="twitter:title" content="记一次服务器惨遭挖矿 - 山河在">
-  <meta name="twitter:description" content="登进服务器一看CPU占用情况, 感觉不对劲(前天刚发现公司服务器惨遭挖矿,隐约之间已经猜到点什么东西, 有点兴奋), top一看, 呦, 好家伙:
+  <meta name="twitter:title" content="解决在Markdown中的表格单元格合并的问题 - 山河在">
+  <meta name="twitter:description" content="
+通过引入html table标签和跨行跨列属性实现单元格的合并
 
 
-首先查看定时任务：
+Markdown中表格的表达
 
-crontab -l
+表格内容对齐方式
 
 
-crontab -e编辑定时任务, 按i...">
+HTML中表格的表达
+如何偷懒
+
+
+Markdown中表格的表达
+Markdown 制作表格使用 | 来分隔不同的单...">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="canonical" href="https://tanglinghan.github.io/post/jiyiciwakuang/">
+  <link rel="canonical" href="https://tanglinghan.github.io/post/markdown-table-cell-merge/">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
@@ -69,83 +87,145 @@ crontab -e编辑定时任务, 按i...">
     <div class="max-w-4xl w-full mx-auto">
       <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
         <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
-          记一次服务器惨遭挖矿
+          解决在Markdown中的表格单元格合并的问题
         </h1>
         
         <div class="mb-8 flex flex-wrap">
-          <div class="text-gray-400 text-sm mr-4">2021-03-07 · 3 min read</div>
+          <div class="text-gray-400 text-sm mr-4">2020-03-10 · 3 min read</div>
           
-            <a href="https://tanglinghan.github.io/tag/fG6OFigaz/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+            <a href="https://tanglinghan.github.io/tag/kK0ujrkWm/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
               <i class="ri-hashtag"></i>
-              Linux
+              Markdown
             </a>
           
         </div>
         <div class="markdown mb-8" v-pre>
-          <p>登进服务器一看CPU占用情况, 感觉不对劲(前天刚发现公司服务器惨遭挖矿,隐约之间已经猜到点什么东西, 有点兴奋), top一看, 呦, 好家伙:<br>
-<img src="https://tanglinghan.github.io/post-images/1615086285423.png" alt="" loading="lazy"></p>
-<ol>
-<li>首先查看定时任务：</li>
-</ol>
-<pre><code>crontab -l
-</code></pre>
-<p><img src="https://tanglinghan.github.io/post-images/1615086133167.png" alt="" loading="lazy"><br>
-<code>crontab -e</code>编辑定时任务, 按<code>i</code>进入编辑模式, 删了这行定时任务, <code>shift+:</code>进入底行命令模式, 输入<code>wq</code>, 保存退出, 重启crond服务</p>
-<pre><code>systemctl restart crond
-</code></pre>
-<ol>
-<li>然后找到挖矿程序进程,  一般这种都有守护线程, 单独kill掉kdevtmpfsi进程会不断恢复占用, kinsing是kdevtmpfsi的守护进程, 依次kill掉</li>
-</ol>
-<pre><code>ps -ef | grep kinsing
-ps -ef | grep kdevtmpfsi
-</code></pre>
-<p><img src="https://tanglinghan.github.io/post-images/1615086638158.png" alt="" loading="lazy"><br>
-3. 找到源文件, 删除</p>
-<pre><code>cd /tmp
-rm kdevtmpfsi
-[root@hecs-x-large-2-linux-20210304000224 tmp]# rm kdevtmpfsi
- rm: remove regular file ‘kdevtmpfsi’? y
-
-cd /etc
-rm kinsing
-[root@hecs-x-large-2-linux-20210304000224 etc]# rm kinsing
-rm: remove regular file ‘kinsing’? y
-
-</code></pre>
-<p>五分钟后.....好家伙, 又来了.....<br>
-这次进程搜不到了...<br>
-<img src="https://tanglinghan.github.io/post-images/1615087227831.png" alt="" loading="lazy"><br>
-然后一看定时任务:<br>
-<img src="https://tanglinghan.github.io/post-images/1615087233955.png" alt="" loading="lazy"><br>
-又回来了<br>
-重复上面操作删除定时任务, 重启定时服务, 通过top命令看到它的PID, <code>kill -9 2627</code><br>
-30秒后.....???</p>
-<pre><code>  PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
- 3588 root      20   0  515536   1724    928 S 100.0  0.0   1:30.83 kdevtmpfsi
-19380 root      20   0 3164884 558104   6312 S   1.0 14.4  13:03.55 java
- 2024 root      20   0 3715112 338048   7168 S   0.3  8.7   2:57.88 java
- 2252 root      20   0 3703328 356088   6640 S   0.3  9.2   3:27.96 java
-</code></pre>
-<p>尝试查找下相关文件</p>
-<pre><code>find / -name kdevtmpfsi
-find / -name kinsing
-</code></pre>
-<p>奇了怪了, 文件删了, 定时任务也删了, 你特么又给我跑起来了.....</p>
-<p>突然发现之前存放挖矿文件的<code>tmp</code>目录有执行权限<br>
-<img src="https://tanglinghan.github.io/post-images/1615090700339.png" alt="" loading="lazy"><br>
-emmm..., 给他来一下🔨</p>
-<pre><code>chmod 666 tmp
-</code></pre>
-<figure data-type="image" tabindex="1"><img src="https://tanglinghan.github.io/post-images/1615090813031.png" alt="" loading="lazy"></figure>
-<blockquote>
-<p>三位数字, 分别代表三个用户位赋予 “文件属主用户”、“文件所属组用户”、“其他用户” 这三种用户对文&gt; 件的读（4）、写（2）、执行（1）权限。<br>
-7=4+2+1，所以就代表读写执行权限，5=4+1，代表读和执行权限。 6=4+2, 代表读和写权限, 也可用使用字母：r读、w写、x执行。</p>
+          <blockquote>
+<p>通过引入html table标签和跨行跨列属性实现单元格的合并</p>
 </blockquote>
-<p>然后在kill掉kdevtmpfsi进程,<br>
-五分钟后....<br>
-十分钟后.......<br>
-暂时OK.......</p>
-<p>🤣🤣CPU一直在50%....感觉还是有问题...🤣🤣重装系统了.........</p>
+<p><ul class="markdownIt-TOC">
+<li><a href="#markdown%E4%B8%AD%E8%A1%A8%E6%A0%BC%E7%9A%84%E8%A1%A8%E8%BE%BE">Markdown中表格的表达</a>
+<ul>
+<li><a href="#%E8%A1%A8%E6%A0%BC%E5%86%85%E5%AE%B9%E5%AF%B9%E9%BD%90%E6%96%B9%E5%BC%8F">表格内容对齐方式</a></li>
+</ul>
+</li>
+<li><a href="#html%E4%B8%AD%E8%A1%A8%E6%A0%BC%E7%9A%84%E8%A1%A8%E8%BE%BE">HTML中表格的表达</a></li>
+<li><a href="#%E5%A6%82%E4%BD%95%E5%81%B7%E6%87%92">如何偷懒</a></li>
+</ul>
+</p>
+<h1 id="markdown中表格的表达">Markdown中表格的表达</h1>
+<p>Markdown 制作表格使用 | 来分隔不同的单元格，使用 - 来分隔表头和其他行。</p>
+<p>语法格式如下：</p>
+<pre><code>|  表头   | 表头  |
+|  ----  | ----  |
+| 单元格  | 单元格 |
+| 单元格  | 单元格 |
+</code></pre>
+<p>以上代码显示结果如下：</p>
+<table>
+<thead>
+<tr>
+<th>表头</th>
+<th>表头</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>单元格</td>
+<td>单元格</td>
+</tr>
+<tr>
+<td>单元格</td>
+<td>单元格</td>
+</tr>
+</tbody>
+</table>
+<h2 id="表格内容对齐方式">表格内容对齐方式</h2>
+<p>我们可以设置表格的对齐方式：</p>
+<ul>
+<li><code>-:</code> 设置内容和标题栏居右对齐。</li>
+<li><code>:-</code> 设置内容和标题栏居左对齐。</li>
+<li><code>:-:</code> 设置内容和标题栏居中对齐。<br>
+示例:</li>
+</ul>
+<pre><code>| 左对齐 | 右对齐 | 居中对齐 |
+| :-----| ----: | :----: |
+| 单元格 | 单元格 | 单元格 |
+| 单元格 | 单元格 | 单元格 |
+</code></pre>
+<p>以上代码显示结果如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">左对齐</th>
+<th style="text-align:right">右对齐</th>
+<th style="text-align:center">居中对齐</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">单元格</td>
+<td style="text-align:right">单元格</td>
+<td style="text-align:center">单元格</td>
+</tr>
+<tr>
+<td style="text-align:left">单元格</td>
+<td style="text-align:right">单元格</td>
+<td style="text-align:center">单元格</td>
+</tr>
+</tbody>
+</table>
+<p>但是Markdown不能对表格单元格进行合并处理。由于markdown支持html，我们可以通过表格在html中的table进行实现。</p>
+<h1 id="html中表格的表达">HTML中表格的表达</h1>
+<pre><code>&lt;table&gt;
+  &lt;tr&gt;
+    &lt;th&gt;项目1&lt;/th&gt;
+    &lt;th&gt;项目2&lt;/th&gt;
+    &lt;th&gt;项目3&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;a1&lt;/td&gt;
+    &lt;td colspan=&quot;2&quot;&gt;a2&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td rowspan=&quot;2&quot;&gt;b1&lt;/td&gt;
+    &lt;td&gt;b2&lt;/td&gt;
+    &lt;td&gt;b3&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;c2&lt;/td&gt;
+    &lt;td&gt;c3&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+</code></pre>
+<table>
+  <tr>
+    <th>项目1</th>
+    <th>项目2</th>
+    <th>项目3</th>
+  </tr>
+  <tr>
+    <td>a1</td>
+    <td colspan="2">a2</td>
+  </tr>
+  <tr>
+    <td rowspan="2">b1</td>
+    <td>b2</td>
+    <td>b3</td>
+  </tr>
+  <tr>
+    <td>c2</td>
+    <td>c3</td>
+  </tr>
+</table>
+<p>html代码通过<code>table</code>及<code>t</code>r、<code>th</code>、<code>td</code>标签实现了基本的表格，通过td标签下的<code>colspan（跨列）</code>及<code>rowspan（跨行）</code>属性进行单元格的合并。</p>
+<h1 id="如何偷懒">如何偷懒</h1>
+<p>那么，我们如何在使用html表格的时候，偷懒不用打这段表格呢？</p>
+<p><a href="http://www.tablesgenerator.com/">http://www.tablesgenerator.com/</a></p>
+<p>我安利这个网站，它可以实现你的需求，包括以上说的合并单元格。</p>
+<blockquote>
+<p><a href="https://3nice.cc/2018/10/01/markdowntable/">解决在Markdown中的表格单元格合并的问题</a></p>
+</blockquote>
 
         </div>
         <!-- Share to Twitter, Weibo, Telegram -->
@@ -192,7 +272,16 @@ emmm..., 给他来一下🔨</p>
         </div>
       </div>
       <div class="post-toc-container">
-        
+        <ul class="markdownIt-TOC">
+<li><a href="#markdown%E4%B8%AD%E8%A1%A8%E6%A0%BC%E7%9A%84%E8%A1%A8%E8%BE%BE">Markdown中表格的表达</a>
+<ul>
+<li><a href="#%E8%A1%A8%E6%A0%BC%E5%86%85%E5%AE%B9%E5%AF%B9%E9%BD%90%E6%96%B9%E5%BC%8F">表格内容对齐方式</a></li>
+</ul>
+</li>
+<li><a href="#html%E4%B8%AD%E8%A1%A8%E6%A0%BC%E7%9A%84%E8%A1%A8%E8%BE%BE">HTML中表格的表达</a></li>
+<li><a href="#%E5%A6%82%E4%BD%95%E5%81%B7%E6%87%92">如何偷懒</a></li>
+</ul>
+
       </div>
     </div>
 

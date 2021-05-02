@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://tanglinghan.github.io</id>
     <title>山河在</title>
-    <updated>2021-05-02T05:19:23.759Z</updated>
+    <updated>2021-05-02T06:45:58.854Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://tanglinghan.github.io"/>
     <link rel="self" href="https://tanglinghan.github.io/atom.xml"/>
@@ -511,11 +511,8 @@ Use static factory methods create() or create(String), or builder() to prepare a
         <link href="https://tanglinghan.github.io/post/jiyiciwakuang/">
         </link>
         <updated>2021-03-07T02:31:18.000Z</updated>
-        <summary type="html"><![CDATA[<p>登进服务器一看CPU占用情况, 感觉不对劲(前天刚发现公司服务器惨遭挖矿,隐约之间已经猜到点什么东西, 有点兴奋), top一看, 呦, 好家伙:</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>登进服务器一看CPU占用情况, 感觉不对劲(前天刚发现公司服务器惨遭挖矿,隐约之间已经猜到点什么东西, 有点兴奋), top一看, 呦, 好家伙:</p>
-<!-- more -->
-<figure data-type="image" tabindex="1"><img src="https://tanglinghan.github.io/post-images/1615086285423.png" alt="" loading="lazy"></figure>
+        <content type="html"><![CDATA[<p>登进服务器一看CPU占用情况, 感觉不对劲(前天刚发现公司服务器惨遭挖矿,隐约之间已经猜到点什么东西, 有点兴奋), top一看, 呦, 好家伙:<br>
+<img src="https://tanglinghan.github.io/post-images/1615086285423.png" alt="" loading="lazy"></p>
 <ol>
 <li>首先查看定时任务：</li>
 </ol>
@@ -568,7 +565,7 @@ find / -name kinsing
 emmm..., 给他来一下🔨</p>
 <pre><code>chmod 666 tmp
 </code></pre>
-<figure data-type="image" tabindex="2"><img src="https://tanglinghan.github.io/post-images/1615090813031.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="1"><img src="https://tanglinghan.github.io/post-images/1615090813031.png" alt="" loading="lazy"></figure>
 <blockquote>
 <p>三位数字, 分别代表三个用户位赋予 “文件属主用户”、“文件所属组用户”、“其他用户” 这三种用户对文&gt; 件的读（4）、写（2）、执行（1）权限。<br>
 7=4+2+1，所以就代表读写执行权限，5=4+1，代表读和执行权限。 6=4+2, 代表读和写权限, 也可用使用字母：r读、w写、x执行。</p>
@@ -1222,6 +1219,140 @@ management.tcp.ip=0.0.0.0
 ]]></content>
     </entry>
     <entry>
+        <title type="html"><![CDATA[解决在Markdown中的表格单元格合并的问题]]></title>
+        <id>https://tanglinghan.github.io/post/markdown-table-cell-merge/</id>
+        <link href="https://tanglinghan.github.io/post/markdown-table-cell-merge/">
+        </link>
+        <updated>2020-03-10T05:28:05.000Z</updated>
+        <content type="html"><![CDATA[<blockquote>
+<p>通过引入html table标签和跨行跨列属性实现单元格的合并</p>
+</blockquote>
+<p><ul class="markdownIt-TOC">
+<li><a href="#markdown%E4%B8%AD%E8%A1%A8%E6%A0%BC%E7%9A%84%E8%A1%A8%E8%BE%BE">Markdown中表格的表达</a>
+<ul>
+<li><a href="#%E8%A1%A8%E6%A0%BC%E5%86%85%E5%AE%B9%E5%AF%B9%E9%BD%90%E6%96%B9%E5%BC%8F">表格内容对齐方式</a></li>
+</ul>
+</li>
+<li><a href="#html%E4%B8%AD%E8%A1%A8%E6%A0%BC%E7%9A%84%E8%A1%A8%E8%BE%BE">HTML中表格的表达</a></li>
+<li><a href="#%E5%A6%82%E4%BD%95%E5%81%B7%E6%87%92">如何偷懒</a></li>
+</ul>
+</p>
+<h1 id="markdown中表格的表达">Markdown中表格的表达</h1>
+<p>Markdown 制作表格使用 | 来分隔不同的单元格，使用 - 来分隔表头和其他行。</p>
+<p>语法格式如下：</p>
+<pre><code>|  表头   | 表头  |
+|  ----  | ----  |
+| 单元格  | 单元格 |
+| 单元格  | 单元格 |
+</code></pre>
+<p>以上代码显示结果如下：</p>
+<table>
+<thead>
+<tr>
+<th>表头</th>
+<th>表头</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>单元格</td>
+<td>单元格</td>
+</tr>
+<tr>
+<td>单元格</td>
+<td>单元格</td>
+</tr>
+</tbody>
+</table>
+<h2 id="表格内容对齐方式">表格内容对齐方式</h2>
+<p>我们可以设置表格的对齐方式：</p>
+<ul>
+<li><code>-:</code> 设置内容和标题栏居右对齐。</li>
+<li><code>:-</code> 设置内容和标题栏居左对齐。</li>
+<li><code>:-:</code> 设置内容和标题栏居中对齐。<br>
+示例:</li>
+</ul>
+<pre><code>| 左对齐 | 右对齐 | 居中对齐 |
+| :-----| ----: | :----: |
+| 单元格 | 单元格 | 单元格 |
+| 单元格 | 单元格 | 单元格 |
+</code></pre>
+<p>以上代码显示结果如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">左对齐</th>
+<th style="text-align:right">右对齐</th>
+<th style="text-align:center">居中对齐</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">单元格</td>
+<td style="text-align:right">单元格</td>
+<td style="text-align:center">单元格</td>
+</tr>
+<tr>
+<td style="text-align:left">单元格</td>
+<td style="text-align:right">单元格</td>
+<td style="text-align:center">单元格</td>
+</tr>
+</tbody>
+</table>
+<p>但是Markdown不能对表格单元格进行合并处理。由于markdown支持html，我们可以通过表格在html中的table进行实现。</p>
+<h1 id="html中表格的表达">HTML中表格的表达</h1>
+<pre><code>&lt;table&gt;
+  &lt;tr&gt;
+    &lt;th&gt;项目1&lt;/th&gt;
+    &lt;th&gt;项目2&lt;/th&gt;
+    &lt;th&gt;项目3&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;a1&lt;/td&gt;
+    &lt;td colspan=&quot;2&quot;&gt;a2&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td rowspan=&quot;2&quot;&gt;b1&lt;/td&gt;
+    &lt;td&gt;b2&lt;/td&gt;
+    &lt;td&gt;b3&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;c2&lt;/td&gt;
+    &lt;td&gt;c3&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+</code></pre>
+<table>
+  <tr>
+    <th>项目1</th>
+    <th>项目2</th>
+    <th>项目3</th>
+  </tr>
+  <tr>
+    <td>a1</td>
+    <td colspan="2">a2</td>
+  </tr>
+  <tr>
+    <td rowspan="2">b1</td>
+    <td>b2</td>
+    <td>b3</td>
+  </tr>
+  <tr>
+    <td>c2</td>
+    <td>c3</td>
+  </tr>
+</table>
+<p>html代码通过<code>table</code>及<code>t</code>r、<code>th</code>、<code>td</code>标签实现了基本的表格，通过td标签下的<code>colspan（跨列）</code>及<code>rowspan（跨行）</code>属性进行单元格的合并。</p>
+<h1 id="如何偷懒">如何偷懒</h1>
+<p>那么，我们如何在使用html表格的时候，偷懒不用打这段表格呢？</p>
+<p><a href="http://www.tablesgenerator.com/">http://www.tablesgenerator.com/</a></p>
+<p>我安利这个网站，它可以实现你的需求，包括以上说的合并单元格。</p>
+<blockquote>
+<p><a href="https://3nice.cc/2018/10/01/markdowntable/">解决在Markdown中的表格单元格合并的问题</a></p>
+</blockquote>
+]]></content>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[Linux - 修改ssh登录和sftp连接超时问题]]></title>
         <id>https://tanglinghan.github.io/post/modify-SSHAndSFTP-ConnectTimeout/</id>
         <link href="https://tanglinghan.github.io/post/modify-SSHAndSFTP-ConnectTimeout/">
@@ -1259,82 +1390,6 @@ ClientAliveCountMax ： 允许超时120次数，超过后断开链接</p>
 </code></pre>
 <h3 id="2-重启sshd服务">2. 重启sshd服务</h3>
 <p><code>systemctl restart sshd</code></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Linux - 安装Nginx]]></title>
-        <id>https://tanglinghan.github.io/post/linux-install-nginx/</id>
-        <link href="https://tanglinghan.github.io/post/linux-install-nginx/">
-        </link>
-        <updated>2020-02-06T02:45:47.000Z</updated>
-        <content type="html"><![CDATA[<p><br>
-操作系统：<code>CentOS 7.6 64bit</code></p>
-<p>安装环境<br>
-<code>yum -y install gcc pcre-devel zlib-devel openssl openssl-devel</code><br>
-nginx下载地址：<a href="https://nginx.org/download/">https://nginx.org/download/</a></p>
-<p>上传压缩包, 解压</p>
-<pre><code class="language-shell">tar -zxvf nginx-1.18.0.tar.gz
-cd nginx-1.18.0/
-</code></pre>
-<p>配置并安装 性能统计模块, SSL模块<br>
-<code>./configure --prefix=/usr/local/nginx --with-http_stub_status_module --with-http_ssl_module</code></p>
-<blockquote>
-<p><code>/usr/local/nginx</code>是安装目录, 可以换成自己想要安装的目录</p>
-<blockquote>
-<p><code>--with-http_stub_status_module</code>主要用于查看Nginx的一些状态信息.<br>
-这个模块的作用于只能在server，location段。<br>
-在server段中添加一个status就可以了，这个status随意起名字。</p>
-</blockquote>
-</blockquote>
-<pre><code class="language-shell">server {
-    listen       80;
-    server_name  localhost;
-    #charset koi8-r;
-    #access_log  /var/log/nginx/host.access.log  main;
-    location /status{
-      stub_status on;
-   }
-    location / {
-        root   /usr/share/nginx/html;
-        index  index.html index.htm;
-    }
-    error_page   500 502 503 504  /50x.html;
-    location = /50x.html {
-        root   /usr/share/nginx/html;
-    }
-}
-</code></pre>
-<blockquote>
-<blockquote>
-<p>访问127.0.0.1/status</p>
-</blockquote>
-</blockquote>
-<p>Active connections: 1<br>
-server accepts handled requests<br>
-20 20 69<br>
-Reading: 0 Writing: 1 Waiting: 0</p>
-<blockquote>
-<blockquote>
-<p>参数介绍:<br>
-Active connections: 1当前活动的连接数<br>
-20 总连接数connection<br>
-20 成功的连接数connection 失败连接＝（总连接数－成功连接数）<br>
-69 总共处理的请求数requests<br>
-Reading: 0 读取客户端Header的信息数 请求头<br>
-Writing: 1 返回给客户端的header的信息数 响应头<br>
-Waiting: 0 等待的请求数，开启了keepalive</p>
-</blockquote>
-</blockquote>
-<p>编译</p>
-<pre><code class="language-shell">make
-make install
-</code></pre>
-<p>检查配置<br>
-<code>/usr/local/nginx/sbin/nginx -t</code><br>
-<img src="https://tanglinghan.github.io/post-images/1617505524665.png" alt="" loading="lazy"></p>
-<p>启动nginx<br>
-<code>/usr/local/nginx/sbin/nginx</code></p>
-<p><a href="http://shouce.jb51.net/nginx-doc/Text/1.3_install.html">参考文档</a></p>
 ]]></content>
     </entry>
 </feed>

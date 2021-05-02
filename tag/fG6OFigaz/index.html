@@ -70,15 +70,20 @@
       </h2>
       <div class="mb-4 text-xs text-gray-500">2021-03-07</div>
       <div class="mb-4 text-gray-500 dark:text-gray-300">
-        <p>登进服务器一看CPU占用情况, 感觉不对劲(前天刚发现公司服务器惨遭挖矿,隐约之间已经猜到点什么东西, 有点兴奋), top一看, 呦, 好家伙:</p>
+        登进服务器一看CPU占用情况, 感觉不对劲(前天刚发现公司服务器惨遭挖矿,隐约之间已经猜到点什么东西, 有点兴奋), top一看, 呦, 好家伙:
 
+
+首先查看定时任务：
+
+crontab -l
+
+
+crontab -e编辑定时任务, 按i...
       </div>
       <a href="https://tanglinghan.github.io/post/jiyiciwakuang/" class="btn">
         Read more
       </a>
     </div>
-    
-      <img class="flex-shrink-0 self-start md:ml-4 mb-4 md:mb-0 rounded-sm object-cover featured-img order-1 md:order-2 w-full h-40 md:w-56 md:h-32" loading="lazy" src="https://tanglinghan.github.io/post-images/jiyiciwakuang.png" alt="记一次服务器惨遭挖矿">
     
   </div>
 
