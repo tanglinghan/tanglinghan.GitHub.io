@@ -91,6 +91,13 @@ export PATH=$PATH:${JAVA_PATH}
 然后重新加载profile文件:</p>
 <pre><code>source /etc/profile
 </code></pre>
+<p>如果遇到配置完成后使用<code>java -version</code>查看发现是openjdk，那就需要卸载系统自带的openjdk。</p>
+<pre><code>#1.使用rpm -qa命令查看安装了多少java软件包
+rpm -qa | grep java
+
+#2.把所有带openjdk的程序包卸载了：rpm -e --nodeps 程序包，如下
+rpm -e --nodeps java-1.6.0-openjdk-1.6.0.0-1.7.b09.el5
+</code></pre>
 
         </div>
         <!-- Share to Twitter, Weibo, Telegram -->

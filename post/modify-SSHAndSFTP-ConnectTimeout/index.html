@@ -4,35 +4,68 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>修改ssh登录和sftp连接超时问题 - 山河在</title>
+<title>Linux - 修改ssh登录和sftp连接超时问题 - 山河在</title>
 <link rel="shortcut icon" href="https://tanglinghan.github.io/favicon.ico">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
 <link rel="stylesheet" href="https://tanglinghan.github.io/media/css/tailwind.css">
 <link rel="stylesheet" href="https://tanglinghan.github.io/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="修改ssh登录和sftp连接超时问题 - 山河在 - Atom Feed" href="https://tanglinghan.github.io/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="Linux - 修改ssh登录和sftp连接超时问题 - 山河在 - Atom Feed" href="https://tanglinghan.github.io/atom.xml">
 
     
 
-  <meta name="description" content="操作系统：CentOS 7.6 64bit
-sftp客户端工具连接sftp服务器时，闲置一段时间后，就会跟服务器断开，重新连接。响应速度相比重新建立连接要慢很多。
+  <meta name="description" content="
+
+
+
+
 1. 修改 sshd_config 配置文件
-vim /etc/ssh/ss..." />
-  <meta property="og:title" content="修改ssh登录和sftp连接超时问题 - 山河在">
-  <meta property="og:description" content="操作系统：CentOS 7.6 64bit
-sftp客户端工具连接sftp服务器时，闲置一段时间后，就会跟服务器断开，重新连接。响应速度相比重新建立连接要慢很多。
+2. 重启sshd服务
+
+
+
+
+
+
+操作系统：CentOS 7.6 64bit
+sftp客户端工具连接sftp服务器时，闲置一段时间后，就会跟服务器断开，重新连接。响应速度相比重新建立..." />
+  <meta property="og:title" content="Linux - 修改ssh登录和sftp连接超时问题 - 山河在">
+  <meta property="og:description" content="
+
+
+
+
 1. 修改 sshd_config 配置文件
-vim /etc/ssh/ss..." />
+2. 重启sshd服务
+
+
+
+
+
+
+操作系统：CentOS 7.6 64bit
+sftp客户端工具连接sftp服务器时，闲置一段时间后，就会跟服务器断开，重新连接。响应速度相比重新建立..." />
   <meta property="og:type" content="articles">
   <meta property="og:url" content="https://tanglinghan.github.io/post/modify-SSHAndSFTP-ConnectTimeout/" />
   <meta property="og:image" content="https://tanglinghan.github.io/images/avatar.png">
   <meta property="og:image:height" content="630">
   <meta property="og:image:width" content="1200">
-  <meta name="twitter:title" content="修改ssh登录和sftp连接超时问题 - 山河在">
-  <meta name="twitter:description" content="操作系统：CentOS 7.6 64bit
-sftp客户端工具连接sftp服务器时，闲置一段时间后，就会跟服务器断开，重新连接。响应速度相比重新建立连接要慢很多。
+  <meta name="twitter:title" content="Linux - 修改ssh登录和sftp连接超时问题 - 山河在">
+  <meta name="twitter:description" content="
+
+
+
+
 1. 修改 sshd_config 配置文件
-vim /etc/ssh/ss...">
+2. 重启sshd服务
+
+
+
+
+
+
+操作系统：CentOS 7.6 64bit
+sftp客户端工具连接sftp服务器时，闲置一段时间后，就会跟服务器断开，重新连接。响应速度相比重新建立...">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://tanglinghan.github.io/post/modify-SSHAndSFTP-ConnectTimeout/">
 
@@ -54,7 +87,7 @@ vim /etc/ssh/ss...">
     <div class="max-w-4xl w-full mx-auto">
       <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
         <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
-          修改ssh登录和sftp连接超时问题
+          Linux - 修改ssh登录和sftp连接超时问题
         </h1>
         
         <div class="mb-8 flex flex-wrap">
@@ -67,7 +100,20 @@ vim /etc/ssh/ss...">
           
         </div>
         <div class="markdown mb-8" v-pre>
-          <p>操作系统：<code>CentOS 7.6 64bit</code></p>
+          <p><ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#1-%E4%BF%AE%E6%94%B9-sshd_config-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6">1. 修改 sshd_config 配置文件</a></li>
+<li><a href="#2-%E9%87%8D%E5%90%AFsshd%E6%9C%8D%E5%8A%A1">2. 重启sshd服务</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<br>
+操作系统：<code>CentOS 7.6 64bit</code></p>
 <p>sftp客户端工具连接sftp服务器时，闲置一段时间后，就会跟服务器断开，重新连接。响应速度相比重新建立连接要慢很多。</p>
 <h3 id="1-修改-sshd_config-配置文件">1. 修改 sshd_config 配置文件</h3>
 <p><code>vim /etc/ssh/sshd_config</code><br>
