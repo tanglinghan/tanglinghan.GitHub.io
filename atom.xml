@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://ManJiis.github.io</id>
     <title>山河在</title>
-    <updated>2021-08-30T13:28:25.073Z</updated>
+    <updated>2021-09-05T07:58:10.075Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://ManJiis.github.io"/>
     <link rel="self" href="https://ManJiis.github.io/atom.xml"/>
@@ -11,7 +11,7 @@
     <icon>https://ManJiis.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, 山河在</rights>
     <entry>
-        <title type="html"><![CDATA[【教程】Windows系统下架设KF2服务器]]></title>
+        <title type="html"><![CDATA[【教程】Windows系统下搭建KF2服务器]]></title>
         <id>https://ManJiis.github.io/post/windows-kf2server/</id>
         <link href="https://ManJiis.github.io/post/windows-kf2server/">
         </link>
@@ -20,7 +20,7 @@
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[【教程】Linux系统下架设KF2服务器]]></title>
+        <title type="html"><![CDATA[【教程】Linux系统下搭建KF2服务器]]></title>
         <id>https://ManJiis.github.io/post/linux-kf2server/</id>
         <link href="https://ManJiis.github.io/post/linux-kf2server/">
         </link>
